@@ -1,0 +1,19 @@
+{
+  "description": "CivCardGame 微信小游戏配置",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": true
+  },
+  "compileNodeRelated": {
+    "enable": false
+  },
+  "condition": {
+    "miniprogram": {
+      "name": "主包",
+      "path": "pages/index/index"
+    }
+  }
+}

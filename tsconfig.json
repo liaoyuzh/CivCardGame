@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@civ/core": ["packages/core/src"],
+      "@civ/core/*": ["packages/core/src/*"],
+      "@civ/minigame": ["packages/minigame/src"],
+      "@civ/minigame/*": ["packages/minigame/src/*"],
+      "@civ/web": ["packages/web/src"],
+      "@civ/web/*": ["packages/web/src/*"],
+      "@civ/wechat": ["packages/wechat/src"],
+      "@civ/wechat/*": ["packages/wechat/src/*"]
+    }
+  },
+  "exclude": ["node_modules", "build"]
+}

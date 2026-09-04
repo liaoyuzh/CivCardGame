@@ -1,0 +1,14 @@
+{
+  "name": "@civ/wechat",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsc --noEmit --watch",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@civ/core": "workspace:*",
+    "@civ/minigame": "workspace:*"
+  }
+}
