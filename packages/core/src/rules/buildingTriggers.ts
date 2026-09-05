@@ -12,7 +12,7 @@ export const tribalCenter=center;
 export function triggerCenter(state:BeginnerFoodState,timing:BuildingTiming,settleFood:()=>string|undefined=()=>undefined,effects:readonly BuildingEffect[]=center.effects):string|undefined {
   if(!state.buildings.some(building=>building.id===center.id))return;
   for(const effect of effects){
-    if(effect.timing!==timing||state.cycle<(effect.fromCycle??1))continue;
+    if(effect.timing!==timing||(state.scene==='tutorial'&&state.cycle<(effect.fromCycle??1)))continue;
     const amount=effect.amount??0;
     if(!Number.isInteger(amount))throw new Error('建筑效果数值必须为整数');
     switch(effect.type){

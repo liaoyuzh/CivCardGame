@@ -14,4 +14,5 @@ export function technologyLayers(technologies:readonly Technology[]):Technology[
   return layers;
 }
 export const ancientTechnologyTree=ancient;
+if(ancient.technologies.some(tech=>!Number.isInteger(tech.cost)||tech.cost<=0))throw new Error('科技价格必须为正整数');
 technologyLayers(ancient.technologies);

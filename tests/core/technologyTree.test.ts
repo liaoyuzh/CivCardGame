@@ -15,7 +15,7 @@ describe('ancient research introduction',()=>{
     }
     function finishCycle(){
       while(state.phase==='action'){
-        while(state.hand.length){dispatch({type:'PLAY_TUTORIAL_CARD',cardId:state.hand[0].id});if(state.researchOpen)dispatch({type:'CLOSE_RESEARCH'});}
+        while(state.hand.length){dispatch({type:'PLAY_TUTORIAL_CARD',cardId:state.hand[0].id});if(state.researchOpen)dispatch({type:'CLOSE_RESEARCH'});if(state.reformOpen)dispatch({type:'CLOSE_REFORM'});}
         dispatch({type:'END_TUTORIAL_TURN'});
       }
     }

@@ -4,10 +4,15 @@
     "effects": [{ "type": "open-research" }]
   },
   "reform": {
-    "name": "改革", "cost": 0, "description": "召集部落议事。改革选项将在后续开放。",
-    "effects": [],
-    "log": { "tone": "info", "title": "部落议事", "detail": "族人开始讨论改变生产方式。目前暂无可执行的改革选项。" }
+    "name": "改革", "cost": 0, "description": "发现新行动、从可选池取牌或移除一张牌，三种操作选一种。",
+    "effects": [{ "type": "open-reform" }]
   },
+  "gather-nuts": { "name": "采集坚果", "cost": 2, "description": "获得 2 张榛子，各提供 1 食物。", "effects": [{ "type": "gain-resource", "resourceId": "hazelnuts", "quantity": 2 }] },
+  "observe-nature": { "name": "观察自然", "cost": 2, "description": "获得 3 科研。", "effects": [{ "type": "gain-research", "amount": 3 }] },
+  "organize-labor": { "name": "组织劳作", "cost": 0, "description": "本回合获得 1 锤。", "effects": [{ "type": "gain-hammers", "amount": 1 }] },
+  "ration-food": { "name": "节约口粮", "cost": 1, "description": "本周期供养需求减少 1，最低为 0。", "effects": [{ "type": "reduce-food-demand", "amount": 1 }] },
+  "build-fire-pit": { "name": "建造火塘", "cost": 2, "description": "建成火塘，提供 3 张烧烤食物到可选卡池。", "effects": [{ "type": "build-fire-pit" }] },
+  "roast-food": { "name": "烧烤食物", "cost": 1, "description": "加工一张食物，使其食物价值 +1。需要已有食物。", "effects": [{ "type": "roast-food" }] },
   "gather-berries": {
     "name": "采集浆果", "cost": 1, "description": "获得 1 张「浆果」资源卡。",
     "effects": [{ "type": "gain-resource", "resourceId": "berries", "quantity": 1 }],

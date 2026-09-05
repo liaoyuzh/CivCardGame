@@ -4,8 +4,8 @@
   "futureUpgrade": "城镇中心",
   "organizationUnlockCycle": 3,
   "effects": [
-    { "timing": "organization-unlocked", "type": "research", "amount": 3 },
-    { "timing": "turn-end", "type": "research", "populationDivisor": 3, "amount": 0, "fromCycle": 3 },
+    { "timing": "organization-unlocked", "type": "research", "amount": 6 },
+    { "timing": "turn-end", "type": "research", "populationDivisor": 1, "amount": 0, "fromCycle": 3 },
     { "timing": "cycle-end", "type": "food-demand", "amount": 0 },
     { "timing": "cycle-end", "type": "settle-food" }
   ]

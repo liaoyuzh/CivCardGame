@@ -1,0 +1,42 @@
+{
+  "scene": "regular",
+  "customSetup": "fire-pit-test",
+  "setups": {
+    "research-start": {
+      "buildings": [
+        "berry-bush",
+        "tribal-center"
+      ],
+      "deck": [
+        {
+          "cardId": "search-food",
+          "count": 2
+        }
+      ]
+    },
+    "minimal": {
+      "buildings": [
+        "berry-bush"
+      ],
+      "deck": [
+        {
+          "cardId": "search-food",
+          "count": 1
+        }
+      ]
+    },
+    "fire-pit-test": {
+      "buildings": [
+        "berry-bush",
+        "tribal-center",
+        "fire-pit"
+      ],
+      "deck": [
+        {
+          "cardId": "search-food",
+          "count": 1
+        }
+      ]
+    }
+  }
+}

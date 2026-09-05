@@ -1,0 +1,5 @@
+{
+  "id": "fire-pit",
+  "name": "火塘",
+  "availableCards": [{ "cardId": "roast-food", "count": 3 }]
+}

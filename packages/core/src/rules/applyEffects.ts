@@ -1,5 +1,6 @@
 import resources from '../content/resources.json';
 import events from '../content/events.json';
+import {openReform,buildFirePit} from './reform';
 import type { BeginnerFoodState, TutorialLogEntry } from '../tutorial/BeginnerFoodDemo';
 
 type Effect = { type:string; resourceId?:string; quantity?:number; amount?:number; pool?:string };
@@ -19,6 +20,12 @@ export function applyEvent(state:BeginnerFoodState,eventId:string):void{
 export function applyEffects(state:BeginnerFoodState,effects:readonly Effect[],resolveEvent?:(pool:string)=>string):void{
   for(const effect of effects){
     switch(effect.type){
+      case 'open-reform': openReform(state);break;
+      case 'build-fire-pit': buildFirePit(state);break;
+      case 'gain-research': state.researchPoints+=nonnegativeInteger(effect.amount);break;
+      case 'gain-hammers': state.hammers+=nonnegativeInteger(effect.amount);break;
+      case 'reduce-food-demand': state.extraFoodDemand=Math.max(-state.population,state.extraFoodDemand-nonnegativeInteger(effect.amount));break;
+      case 'roast-food': if(state.foodResources[0])state.foodResources[0].food++;break;
       case 'open-research': state.researchOpen=true;break;
       case 'gain-resource': {
         if(!effect.resourceId||!Object.prototype.hasOwnProperty.call(resources,effect.resourceId))throw new Error(`Unknown resource: ${effect.resourceId}`);
