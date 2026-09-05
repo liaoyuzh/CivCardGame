@@ -1,0 +1,20 @@
+{
+  "research": {
+    "name": "科研", "cost": 1, "description": "打开科研界面，查看远古科技及前置关系。",
+    "effects": [{ "type": "open-research" }]
+  },
+  "reform": {
+    "name": "改革", "cost": 0, "description": "召集部落议事。改革选项将在后续开放。",
+    "effects": [],
+    "log": { "tone": "info", "title": "部落议事", "detail": "族人开始讨论改变生产方式。目前暂无可执行的改革选项。" }
+  },
+  "gather-berries": {
+    "name": "采集浆果", "cost": 1, "description": "获得 1 张「浆果」资源卡。",
+    "effects": [{ "type": "gain-resource", "resourceId": "berries", "quantity": 1 }],
+    "log": { "tone": "good", "title": "采集浆果", "detail": "获得 1 食物。浆果作为实体资源进入食物区。" }
+  },
+  "search-food": {
+    "name": "搜寻食物", "cost": 1, "description": "生成并结算 1 张「食物」事件。",
+    "effects": [{ "type": "trigger-event", "pool": "food" }]
+  }
+}

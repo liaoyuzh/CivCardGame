@@ -1,0 +1,17 @@
+{
+  "stored-nuts": {
+    "effects": [{ "type": "gain-resource", "resourceId": "hazelnuts", "quantity": 1 }],
+    "log": { "tone": "good", "title": "食物事件：树洞里的储粮", "detail": "你发现动物储藏的坚果，获得 1 食物。" }
+  },
+  "injury": {
+    "effects": [{ "type": "set-food-demand", "amount": 6 }],
+    "log": { "tone": "warning", "title": "食物事件：伤员救治", "detail": "本生产周期结束时额外支付 6 食物。当前预计仍缺 3 食物。" }
+  },
+  "wild-meat": {
+    "effects": [
+      { "type": "gain-resource", "resourceId": "wild-meat", "quantity": 1 },
+      { "type": "set-sick-workers", "amount": 1 }
+    ],
+    "log": { "tone": "warning", "title": "偶遇事件：发现野猪尸体", "detail": "最后一次采集翻面触发事件。获得 3 食物，但食用会使下周期少 1 锤。" }
+  }
+}

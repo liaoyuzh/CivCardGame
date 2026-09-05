@@ -1,0 +1,5 @@
+{
+  "berries": { "name": "浆果", "food": 1 },
+  "hazelnuts": { "name": "榛子", "food": 1 },
+  "wild-meat": { "name": "野猪尸体", "food": 3, "consequence": "食用后，下个生产周期 1 人口无法劳动。" }
+}

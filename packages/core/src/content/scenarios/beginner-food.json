@@ -1,0 +1,27 @@
+{
+  "startingPopulation": 5,
+  "cycles": [
+    { "foodEvent": "stored-nuts", "log": { "tone": "info", "title": "第一个生产周期", "detail": "打出行动牌获取食物。每个人口每回合提供 1 锤。" } },
+    { "foodEvent": "injury", "log": { "tone": "info", "title": "第二个生产周期", "detail": "人口 {population}，所以每回合有 {population} 锤。留意多出的劳动力。" } },
+    { "foodEvent": "stored-nuts", "log": { "tone": "info", "title": "部落中心 · 组织能力开启", "detail": "经历食物危机后，部落中心开启组织能力，每周期提供科研与改革各一张。本周期有一位族人因生病无法劳动。" } }
+  ],
+  "hands": [
+    [
+      { "id": "b1", "cardId": "gather-berries" },
+      { "id": "b2", "cardId": "gather-berries" },
+      { "id": "s", "cardId": "search-food" },
+      { "id": "b3", "cardId": "gather-berries" },
+      { "id": "b4", "cardId": "gather-berries" }
+    ],
+    [
+      { "id": "b5", "cardId": "gather-berries" },
+      { "id": "b6", "cardId": "gather-berries" },
+      { "id": "b7", "cardId": "gather-berries" },
+      { "id": "b8", "cardId": "gather-berries" },
+      { "id": "b9", "cardId": "gather-berries" }
+    ]
+  ],
+  "triggers": [
+    { "cycle": 2, "playedThisCycle": 10, "cardId": "gather-berries", "eventId": "wild-meat" }
+  ]
+}

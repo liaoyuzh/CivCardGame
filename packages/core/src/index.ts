@@ -7,3 +7,4 @@ export * from './model/Player';
 export * from './ports/RandomSource';
 export * from './rules/gameConfig';
 export * from './tutorial/BeginnerFoodDemo';
+export * from './tutorial/TechnologyTree';

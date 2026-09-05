@@ -1,0 +1,17 @@
+{
+  "era": "ancient",
+  "name": "远古时代",
+  "technologies": [
+    { "id": "pottery", "name": "制陶术", "prerequisites": [] },
+    { "id": "animal-husbandry", "name": "畜牧业", "prerequisites": [] },
+    { "id": "mining", "name": "采矿业", "prerequisites": [] },
+    { "id": "sailing", "name": "航海术", "prerequisites": [] },
+    { "id": "astrology", "name": "占星术", "prerequisites": [] },
+    { "id": "irrigation", "name": "灌溉", "prerequisites": ["pottery"] },
+    { "id": "writing", "name": "文字", "prerequisites": ["pottery"] },
+    { "id": "archery", "name": "箭术", "prerequisites": ["animal-husbandry"] },
+    { "id": "masonry", "name": "砌砖", "prerequisites": ["mining"] },
+    { "id": "bronze-working", "name": "青铜器", "prerequisites": ["mining"] },
+    { "id": "wheel", "name": "轮子", "prerequisites": ["mining"] }
+  ]
+}
