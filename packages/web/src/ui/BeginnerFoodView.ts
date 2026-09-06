@@ -1,5 +1,5 @@
 import {showReform} from './ReformView';
-import {centerRates,totalFood,totalFoodDemand,buildingCatalog,rarityNames,rarityOf,type BeginnerFoodCommand,type BeginnerFoodState} from '@civ/core';
+import {growthFoodDemand,centerRates,totalFood,totalFoodDemand,buildingCatalog,rarityNames,rarityOf,type BeginnerFoodCommand,type BeginnerFoodState} from '@civ/core';
 import {showTechnologyTree} from './TechnologyTreeView';
 import {showResearchShop} from './ResearchShopView';
 
@@ -54,7 +54,7 @@ export class BeginnerFoodView{
 
   private logPanel(state:BeginnerFoodState):string{return `<aside class="panel chronicle" id="log-panel"><div class="section-title"><div><span>文明纪事</span><h2>事件记录</h2></div><small>${state.log.length} 条</small></div>${state.log.map(entry=>`<article class="log ${entry.tone}"><i></i><div><b>${entry.title}</b><p>${entry.detail}</p></div></article>`).join('')||'<p class="empty">尚无事件。</p>'}</aside>`;}
 
-  private foodTooltip(state:BeginnerFoodState,food:number,demand:number):string{const groups=new Map<string,{name:string;count:number;food:number}>();for(const item of state.foodResources){const group=groups.get(item.kind)??{name:item.name,count:0,food:0};group.count++;group.food+=item.food;groups.set(item.kind,group);}const breakdown=[...groups.values()].map(item=>`${item.name} ×${item.count} = ${item.food}`).join('，')||'暂无食物';return `食物：${food} / ${demand}。${food>=demand?'当前足够供养':'当前不足供养'}。${breakdown}`;}
+  private foodTooltip(state:BeginnerFoodState,food:number,demand:number):string{const groups=new Map<string,{name:string;count:number;food:number}>();for(const item of state.foodResources){const group=groups.get(item.kind)??{name:item.name,count:0,food:0};group.count++;group.food+=item.food;groups.set(item.kind,group);}const breakdown=[...groups.values()].map(item=>`${item.name} ×${item.count} = ${item.food}`).join('，')||'暂无食物';return `食物：${food} / ${demand}。${food>=demand?'当前足够供养':'当前不足供养'}。人口增长需至少 ${growthFoodDemand(demand)} 食物且有盈余，每周期 +1 人口；供养足够但未达增长门槛则维持，每缺 1 食物减少 1 人口。${breakdown}`;}
   private cardIcon(kind:string):string{return kind.startsWith('build-')?'🏗️':kind==='gather-berries'?'🫐':kind==='research'?'🔬':kind==='reform'?'📜':kind==='roast-food'?'🔥':'🧭';}
   private cardSource(id?:string):string{return id==='tribal-center'?'部落中心':id==='berry-bush'?'浆果丛':buildingCatalog.find(item=>item.id===id)?.name??'常驻卡';}
 

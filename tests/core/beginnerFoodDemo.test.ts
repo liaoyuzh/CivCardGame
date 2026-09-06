@@ -1,11 +1,37 @@
 import {describe,expect,it} from 'vitest';
 import {applyBeginnerFoodCommand,createBeginnerFoodDemo,createCycleDeck,totalFood,totalFoodDemand,type BeginnerFoodState} from '@civ/core';
+import center from '../../packages/core/src/content/buildings/tribal-center.json';
 
 function playHand(state:BeginnerFoodState):BeginnerFoodState{
   while(state.hand.length){const result=applyBeginnerFoodCommand(state,{type:'PLAY_TUTORIAL_CARD',cardId:state.hand[0].id});expect(result.error).toBeUndefined();state=result.state;}
   return state;
 }
 describe('beginner food demo',()=>{
+  for(const scene of ['tutorial','regular'] as const){
+    it.each([
+      [20,20,0,20], [20,21,0,20], [20,22,0,21], [20,40,0,21],
+      [5,5,0,5], [5,6,0,6], [20,19,0,19], [20,17,0,17],
+      [5,0,10,0], [0,0,0,0], [10,21,10,10], [10,22,10,11],
+    ])(`${scene}: settles population %i with food %i and extra demand %i to %i`,(population,food,extraFoodDemand,expected)=>{
+      const state=createBeginnerFoodDemo();
+      Object.assign(state,{scene,population,extraFoodDemand,hand:[],cycleDeck:[],foodResources:[{id:'test-food',kind:'berries',name:'浆果',food}]});
+      const result=applyBeginnerFoodCommand(state,{type:'END_TUTORIAL_TURN'});
+      expect(result.error).toBeUndefined();expect(result.state.population).toBe(expected);
+      expect(result.state.phase).toBe('cycle-result');expect(totalFood(result.state)).toBe(0);
+      expect(state.population).toBe(population);
+    });
+  }
+  it('uses the configured growth surplus ratio',()=>{
+    const original=center.populationGrowthSurplusRatio;
+    try{
+      center.populationGrowthSurplusRatio=0.2;
+      for(const [food,expected] of [[11,10],[12,11]]){
+        const state=createBeginnerFoodDemo();
+        Object.assign(state,{population:10,hand:[],cycleDeck:[],foodResources:[{id:'test-food',kind:'berries',name:'浆果',food}]});
+        expect(applyBeginnerFoodCommand(state,{type:'END_TUTORIAL_TURN'}).state.population).toBe(expected);
+      }
+    }finally{center.populationGrowthSurplusRatio=original;}
+  });
   it('generates nine cycle cards and spends building uses only on successful gathering',()=>{
     const initial=createBeginnerFoodDemo();
     expect(initial.buildings[0].remainingUses).toBe(40);

@@ -6,7 +6,7 @@ import scenario from '../content/scenarios/beginner-food.json';
 import { applyEffects,applyEvent,addContentLog } from '../rules/applyEffects';
 import {tribalCenter,triggerCenter} from '../rules/buildingTriggers';
 import {ancientTechnologyTree} from './TechnologyTree';
-import {baseFoodDemand} from '../rules/centerRates';
+import {baseFoodDemand,growthFoodDemand} from '../rules/centerRates';
 
 export type TutorialActionKind = keyof typeof cards;
 export type FoodKind = keyof typeof resources;
@@ -179,13 +179,14 @@ function resolveCycle(next:BeginnerFoodState):BeginnerFoodResult{
   const food=totalFood(next),demand=totalFoodDemand(next),surplus=food-demand;
   if(surplus>0&&next.surplusResearch){next.researchPoints+=surplus;addLog(next,'good','试验新法',`盈余食物转化为 ${surplus} 科研。`);}
   if(surplus<0){
-    if(next.scene==='tutorial')return {state:next,error:`仍缺少 ${Math.abs(surplus)} 食物，无法结束生产周期。`};
-    next.resultMessage=`食物短缺 ${Math.abs(surplus)}，人口保持 ${next.population}。已消耗现有食物，继续下一周期。`;
+    const lostPopulation=Math.min(next.population,Math.abs(surplus));
+    next.population-=lostPopulation;
+    next.resultMessage=`食物短缺 ${Math.abs(surplus)}，人口 -${lostPopulation}，剩余 ${next.population}。已消耗现有食物，继续下一周期。`;
     addLog(next,'warning','供养不足',next.resultMessage);
     next.foodResources=[];next.phase='cycle-result';return {state:next};
   }
-  if(surplus>0){next.population++;next.resultMessage=`支付 ${demand} 食物后盈余 ${surplus}，人口 +1。剩余食物随后清零。`;addLog(next,'good','人口增长',next.resultMessage);}
-  else{next.resultMessage=`支付 ${demand} 食物后没有盈余，人口保持 ${next.population}。剩余食物清零。`;addLog(next,'warning','仅完成供养',next.resultMessage);}
+  if(food>=growthFoodDemand(demand)&&surplus>0){next.population++;next.resultMessage=`支付 ${demand} 食物后盈余 ${surplus}，达到增长门槛，人口 +1。剩余食物随后清零。`;addLog(next,'good','人口增长',next.resultMessage);}
+  else{next.resultMessage=`支付 ${demand} 食物后盈余 ${surplus}，未达到增长门槛（需 ${growthFoodDemand(demand)} 食物且有盈余），人口保持 ${next.population}。剩余食物清零。`;addLog(next,'warning','仅完成供养',next.resultMessage);}
   next.foodResources=[];next.phase='cycle-result';return {state:next};
 }
 function addLog(next:BeginnerFoodState,tone:TutorialLogEntry['tone'],title:string,detail:string):void{next.log.unshift({id:next.nextLogId++,tone,title,detail});}

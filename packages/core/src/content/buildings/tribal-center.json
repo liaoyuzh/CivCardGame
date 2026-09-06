@@ -4,6 +4,7 @@
   "futureUpgrade": "城镇中心",
   "organizationUnlockCycle": 3,
   "foodPerPopulation": 1,
+  "populationGrowthSurplusRatio": 0.1,
   "researchPerPopulation": 1,
   "effects": [
     {

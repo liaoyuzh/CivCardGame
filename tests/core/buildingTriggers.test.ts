@@ -17,10 +17,13 @@ describe('tribal center settlement',()=>{
     triggerCenter(state,'cycle-end',undefined,[{timing:'cycle-end',type:'food-demand',amount:-20}]);
     expect(state.population+state.extraFoodDemand).toBe(0);
   });
-  it('does not commit research when food settlement fails, or repeat completed settlement',()=>{
+  it('awards research before starvation and does not repeat completed settlement',()=>{
     const state=createBeginnerFoodDemo();state.cycle=3;state.hand=[];state.turnInCycle=2;
-    const failed=applyBeginnerFoodCommand(state,{type:'END_TUTORIAL_TURN'});
-    expect(failed.error).toBeDefined();expect(failed.state).toBe(state);expect(state.researchPoints).toBe(0);
+    const shortage=applyBeginnerFoodCommand(state,{type:'END_TUTORIAL_TURN'});
+    expect(shortage.error).toBeUndefined();expect(shortage.state.population).toBe(0);
+    expect(shortage.state.researchPoints).toBe(5);expect(state.researchPoints).toBe(0);
+    const repeated=applyBeginnerFoodCommand(shortage.state,{type:'END_TUTORIAL_TURN'});
+    expect(repeated.error).toBeDefined();expect(repeated.state).toBe(shortage.state);
     state.foodResources=[{id:'test',kind:'berries',name:'浆果',food:6}];
     const success=applyBeginnerFoodCommand(state,{type:'END_TUTORIAL_TURN'});
     expect(success.error).toBeUndefined();expect(success.state.researchPoints).toBe(5);expect(success.state.population).toBe(6);

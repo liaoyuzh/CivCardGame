@@ -5,6 +5,8 @@ export function populationOutput(population:number,rate:number):number {
   return Math.ceil(population*rate);
 }
 export function baseFoodDemand(population:number):number{return populationOutput(population,center.foodPerPopulation);}
+export function growthFoodDemand(demand:number):number{return demand+populationOutput(demand,center.populationGrowthSurplusRatio);}
 export const centerRates={foodPerPopulation:center.foodPerPopulation,researchPerPopulation:center.researchPerPopulation};
 populationOutput(1,center.foodPerPopulation);
 populationOutput(1,center.researchPerPopulation);
+populationOutput(1,center.populationGrowthSurplusRatio);
