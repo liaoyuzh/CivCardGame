@@ -1,25 +1,37 @@
 import cards from '../content/cards.json';
 import unknownPool from '../content/reform-pool.json';
 import firePit from '../content/buildings/fire-pit.json';
+import ancientBuildings from '../content/buildings/ancient.json';
+import {rarityPick,nextRandom} from './rarity';
 import type {BeginnerFoodState,TutorialActionCard,TutorialActionKind} from '../tutorial/BeginnerFoodDemo';
 
 export function makeAction(state:BeginnerFoodState,kind:TutorialActionKind,sourceBuildingId?:string):TutorialActionCard {
-  const {name,cost,description}=cards[kind];
-  return {id:`owned-${state.nextCardId++}`,kind,name,cost,description,sourceBuildingId};
+  const {name,cost,description,rarity}=cards[kind];
+  return {id:`owned-${state.nextCardId++}`,kind,name,cost,description,rarity,sourceBuildingId};
 }
 export function openReform(state:BeginnerFoodState):void {
   state.reformOpen=true;
-  const pool=[...unknownPool] as TutorialActionKind[];
-  for(let i=pool.length-1;i>0;i--){
-    state.reformSeed=(Math.imul(state.reformSeed,1664525)+1013904223)>>>0;
-    const j=state.reformSeed%(i+1);[pool[i],pool[j]]=[pool[j],pool[i]];
+  let pool=unknownPool.map(id=>({id:id as TutorialActionKind,rarity:cards[id as TutorialActionKind].rarity}));
+  state.reformOffers=[];
+  for(let i=0;i<3&&pool.length;i++){
+    const chosen=rarityPick(pool,()=>nextRandom(state));state.reformOffers.push(chosen.id);
+    pool=pool.filter(item=>item.id!==chosen.id);
   }
-  state.reformOffers=pool.slice(0,3);
+}
+export const buildingCatalog=[firePit,...ancientBuildings];
+export function blueprintBuilding(kind:TutorialActionKind):string|undefined {
+  const effect=cards[kind].effects.find(effect=>effect.type==='build-building');
+  return effect&&'buildingId' in effect&&typeof effect.buildingId==='string'?effect.buildingId:undefined;
+}
+export function buildBuilding(state:BeginnerFoodState,id:string):void {
+  const definition=buildingCatalog.find(building=>building.id===id);
+  if(!definition)throw new Error(`未知建筑：${id}`);
+  if(state.buildings.some(building=>building.id===id))return;
+  state.buildings.push({id:definition.id,name:definition.name,rarity:definition.rarity,remainingUses:null,totalUses:null,cardsPerCycle:0});
+  for(const entry of definition.availableCards)for(let i=0;i<entry.count;i++)state.availablePool.push(makeAction(state,entry.cardId as TutorialActionKind,id));
 }
 export function buildFirePit(state:BeginnerFoodState):void {
-  if(state.buildings.some(building=>building.id==='fire-pit'))return;
-  state.buildings.push({id:firePit.id,name:firePit.name,remainingUses:null,totalUses:null,cardsPerCycle:0});
-  for(const entry of firePit.availableCards)for(let i=0;i<entry.count;i++)state.availablePool.push(makeAction(state,entry.cardId as TutorialActionKind,firePit.id));
+  buildBuilding(state,'fire-pit');
 }
 export function removeOwnedCard(state:BeginnerFoodState,id:string):void {
   const boundary=state.turnInCycle*5-state.removedDrawnCards;

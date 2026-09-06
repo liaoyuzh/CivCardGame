@@ -1,0 +1,6 @@
+{
+  "offerCount": 10,
+  "technologyCount": 3,
+  "blueprintChance": 0.5,
+  "rarityWeights": { "white": 70, "blue": 28, "gold": 1.9, "red": 0.1 }
+}

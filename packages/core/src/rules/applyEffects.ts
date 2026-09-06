@@ -1,9 +1,11 @@
 import resources from '../content/resources.json';
 import events from '../content/events.json';
-import {openReform,buildFirePit} from './reform';
+import {baseFoodDemand} from './centerRates';
+import {openReform,buildFirePit,buildBuilding} from './reform';
+import {openResearchShop} from './researchShop';
 import type { BeginnerFoodState, TutorialLogEntry } from '../tutorial/BeginnerFoodDemo';
 
-type Effect = { type:string; resourceId?:string; quantity?:number; amount?:number; pool?:string };
+type Effect = { type:string; resourceId?:string; quantity?:number; amount?:number; pool?:string; buildingId?:string };
 
 export function addContentLog(state:BeginnerFoodState,log:{tone:string;title:string;detail:string}):void{
   if(!['info','good','warning'].includes(log.tone))throw new Error(`Invalid log tone: ${log.tone}`);
@@ -20,13 +22,16 @@ export function applyEvent(state:BeginnerFoodState,eventId:string):void{
 export function applyEffects(state:BeginnerFoodState,effects:readonly Effect[],resolveEvent?:(pool:string)=>string):void{
   for(const effect of effects){
     switch(effect.type){
+      case 'build-building': if(!effect.buildingId)throw new Error('缺少建筑 id');buildBuilding(state,effect.buildingId);break;
+      case 'surplus-research': state.surplusResearch=true;break;
+      case 'population-hammers': state.hammers+=state.population;break;
       case 'open-reform': openReform(state);break;
       case 'build-fire-pit': buildFirePit(state);break;
       case 'gain-research': state.researchPoints+=nonnegativeInteger(effect.amount);break;
       case 'gain-hammers': state.hammers+=nonnegativeInteger(effect.amount);break;
-      case 'reduce-food-demand': state.extraFoodDemand=Math.max(-state.population,state.extraFoodDemand-nonnegativeInteger(effect.amount));break;
+      case 'reduce-food-demand': state.extraFoodDemand=Math.max(-baseFoodDemand(state.population),state.extraFoodDemand-nonnegativeInteger(effect.amount));break;
       case 'roast-food': if(state.foodResources[0])state.foodResources[0].food++;break;
-      case 'open-research': state.researchOpen=true;break;
+      case 'open-research': openResearchShop(state);break;
       case 'gain-resource': {
         if(!effect.resourceId||!Object.prototype.hasOwnProperty.call(resources,effect.resourceId))throw new Error(`Unknown resource: ${effect.resourceId}`);
         const quantity=nonnegativeInteger(effect.quantity);

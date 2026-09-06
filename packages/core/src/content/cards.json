@@ -1,25 +1,493 @@
 {
   "research": {
-    "name": "科研", "cost": 1, "description": "打开科研界面，查看远古科技及前置关系。",
-    "effects": [{ "type": "open-research" }]
+    "name": "科研",
+    "cost": 1,
+    "rarity": "blue",
+    "researchCost": 12,
+    "description": "打开固定候选科研商店，购买科技、蓝图和行动卡。",
+    "effects": [
+      {
+        "type": "open-research"
+      }
+    ]
   },
   "reform": {
-    "name": "改革", "cost": 0, "description": "发现新行动、从可选池取牌或移除一张牌，三种操作选一种。",
-    "effects": [{ "type": "open-reform" }]
+    "name": "改革",
+    "cost": 0,
+    "rarity": "blue",
+    "researchCost": 12,
+    "description": "发现新行动、从可选池取牌或移除一张牌，三种操作选一种。",
+    "effects": [
+      {
+        "type": "open-reform"
+      }
+    ]
   },
-  "gather-nuts": { "name": "采集坚果", "cost": 2, "description": "获得 2 张榛子，各提供 1 食物。", "effects": [{ "type": "gain-resource", "resourceId": "hazelnuts", "quantity": 2 }] },
-  "observe-nature": { "name": "观察自然", "cost": 2, "description": "获得 3 科研。", "effects": [{ "type": "gain-research", "amount": 3 }] },
-  "organize-labor": { "name": "组织劳作", "cost": 0, "description": "本回合获得 1 锤。", "effects": [{ "type": "gain-hammers", "amount": 1 }] },
-  "ration-food": { "name": "节约口粮", "cost": 1, "description": "本周期供养需求减少 1，最低为 0。", "effects": [{ "type": "reduce-food-demand", "amount": 1 }] },
-  "build-fire-pit": { "name": "建造火塘", "cost": 2, "description": "建成火塘，提供 3 张烧烤食物到可选卡池。", "effects": [{ "type": "build-fire-pit" }] },
-  "roast-food": { "name": "烧烤食物", "cost": 1, "description": "加工一张食物，使其食物价值 +1。需要已有食物。", "effects": [{ "type": "roast-food" }] },
   "gather-berries": {
-    "name": "采集浆果", "cost": 1, "description": "获得 1 张「浆果」资源卡。",
-    "effects": [{ "type": "gain-resource", "resourceId": "berries", "quantity": 1 }],
-    "log": { "tone": "good", "title": "采集浆果", "detail": "获得 1 食物。浆果作为实体资源进入食物区。" }
+    "name": "采集浆果",
+    "cost": 1,
+    "rarity": "white",
+    "researchCost": 3,
+    "description": "获得 1 张浆果，价值 1 食物。",
+    "effects": [
+      {
+        "type": "gain-resource",
+        "resourceId": "berries",
+        "quantity": 1
+      }
+    ]
   },
   "search-food": {
-    "name": "搜寻食物", "cost": 1, "description": "生成并结算 1 张「食物」事件。",
-    "effects": [{ "type": "trigger-event", "pool": "food" }]
+    "name": "搜寻食物",
+    "cost": 1,
+    "rarity": "white",
+    "researchCost": 4,
+    "description": "生成并结算 1 张食物事件。",
+    "effects": [
+      {
+        "type": "trigger-event",
+        "pool": "food"
+      }
+    ]
+  },
+  "gather-nuts": {
+    "name": "采集坚果",
+    "cost": 2,
+    "rarity": "white",
+    "researchCost": 4,
+    "description": "获得 2 张榛子，各价值 1 食物。",
+    "effects": [
+      {
+        "type": "gain-resource",
+        "resourceId": "hazelnuts",
+        "quantity": 2
+      }
+    ]
+  },
+  "observe-nature": {
+    "name": "观察自然",
+    "cost": 2,
+    "rarity": "blue",
+    "researchCost": 6,
+    "description": "获得 3 科研。",
+    "effects": [
+      {
+        "type": "gain-research",
+        "amount": 3
+      }
+    ]
+  },
+  "organize-labor": {
+    "name": "组织劳作",
+    "cost": 0,
+    "rarity": "blue",
+    "researchCost": 6,
+    "description": "获得 1 锤及 1 科研。",
+    "effects": [
+      {
+        "type": "gain-hammers",
+        "amount": 1
+      },
+      {
+        "type": "gain-research",
+        "amount": 1
+      }
+    ]
+  },
+  "ration-food": {
+    "name": "节约口粮",
+    "cost": 1,
+    "rarity": "white",
+    "researchCost": 4,
+    "description": "本周期供养需求减少 1，最低为 0。",
+    "effects": [
+      {
+        "type": "reduce-food-demand",
+        "amount": 1
+      }
+    ]
+  },
+  "collect-kindling": {
+    "name": "拾取柴薪",
+    "cost": 0,
+    "rarity": "white",
+    "researchCost": 3,
+    "description": "本回合获得 1 锤。",
+    "effects": [
+      {
+        "type": "gain-hammers",
+        "amount": 1
+      }
+    ]
+  },
+  "forage-roots": {
+    "name": "挖掘块根",
+    "cost": 1,
+    "rarity": "white",
+    "researchCost": 3,
+    "description": "获得 1 张块根，价值 1 食物。",
+    "effects": [
+      {
+        "type": "gain-resource",
+        "resourceId": "roots",
+        "quantity": 1
+      }
+    ]
+  },
+  "share-experience": {
+    "name": "交流经验",
+    "cost": 1,
+    "rarity": "blue",
+    "researchCost": 6,
+    "description": "获得 2 科研。",
+    "effects": [
+      {
+        "type": "gain-research",
+        "amount": 2
+      }
+    ]
+  },
+  "experimental-method": {
+    "name": "试验新法",
+    "cost": 2,
+    "rarity": "gold",
+    "researchCost": 10,
+    "description": "本周期供养后的盈余食物值全部转为科研。重复打出不叠加。",
+    "effects": [
+      {
+        "type": "surplus-research"
+      }
+    ]
+  },
+  "great-mobilization": {
+    "name": "全民动员",
+    "cost": 0,
+    "rarity": "red",
+    "researchCost": 24,
+    "description": "获得等同人口数的锤子。",
+    "effects": [
+      {
+        "type": "population-hammers"
+      }
+    ]
+  },
+  "build-pottery-kiln": {
+    "name": "陶窑蓝图",
+    "cost": 2,
+    "rarity": "white",
+    "researchCost": 6,
+    "description": "建成陶窑，3 张烧制陶器加入可选池。建造后消耗蓝图。",
+    "effects": [
+      {
+        "type": "build-building",
+        "buildingId": "pottery-kiln"
+      }
+    ]
+  },
+  "make-pottery": {
+    "name": "烧制陶器",
+    "cost": 1,
+    "rarity": "white",
+    "researchCost": 4,
+    "description": "本周期食物需求减少 1。",
+    "effects": [
+      {
+        "type": "reduce-food-demand",
+        "amount": 1
+      }
+    ]
+  },
+  "build-pasture": {
+    "name": "牧场蓝图",
+    "cost": 3,
+    "rarity": "white",
+    "researchCost": 6,
+    "description": "建成牧场，3 张放牧加入可选池。建造后消耗蓝图。",
+    "effects": [
+      {
+        "type": "build-building",
+        "buildingId": "pasture"
+      }
+    ]
+  },
+  "tend-herds": {
+    "name": "放牧",
+    "cost": 1,
+    "rarity": "white",
+    "researchCost": 4,
+    "description": "获得 1 张鲜奶，价值 2 食物。",
+    "effects": [
+      {
+        "type": "gain-resource",
+        "resourceId": "milk",
+        "quantity": 1
+      }
+    ]
+  },
+  "build-mine": {
+    "name": "矿场蓝图",
+    "cost": 3,
+    "rarity": "white",
+    "researchCost": 6,
+    "description": "建成矿场，3 张开采石料加入可选池。建造后消耗蓝图。",
+    "effects": [
+      {
+        "type": "build-building",
+        "buildingId": "mine"
+      }
+    ]
+  },
+  "mine-stone": {
+    "name": "开采石料",
+    "cost": 1,
+    "rarity": "white",
+    "researchCost": 4,
+    "description": "获得 2 锤。",
+    "effects": [
+      {
+        "type": "gain-hammers",
+        "amount": 2
+      }
+    ]
+  },
+  "build-fishing-dock": {
+    "name": "渔港蓝图",
+    "cost": 3,
+    "rarity": "blue",
+    "researchCost": 9,
+    "description": "建成渔港，3 张近海捕鱼加入可选池。建造后消耗蓝图。",
+    "effects": [
+      {
+        "type": "build-building",
+        "buildingId": "fishing-dock"
+      }
+    ]
+  },
+  "coastal-fishing": {
+    "name": "近海捕鱼",
+    "cost": 2,
+    "rarity": "blue",
+    "researchCost": 4,
+    "description": "获得 2 张鱼，各价值 2 食物。",
+    "effects": [
+      {
+        "type": "gain-resource",
+        "resourceId": "fish",
+        "quantity": 2
+      }
+    ]
+  },
+  "build-star-circle": {
+    "name": "观星台蓝图",
+    "cost": 3,
+    "rarity": "blue",
+    "researchCost": 9,
+    "description": "建成观星台，2 张解读星象加入可选池。建造后消耗蓝图。",
+    "effects": [
+      {
+        "type": "build-building",
+        "buildingId": "star-circle"
+      }
+    ]
+  },
+  "read-stars": {
+    "name": "解读星象",
+    "cost": 2,
+    "rarity": "blue",
+    "researchCost": 4,
+    "description": "获得 4 科研。",
+    "effects": [
+      {
+        "type": "gain-research",
+        "amount": 4
+      }
+    ]
+  },
+  "build-irrigated-farm": {
+    "name": "灌溉农田蓝图",
+    "cost": 3,
+    "rarity": "blue",
+    "researchCost": 9,
+    "description": "建成灌溉农田，3 张收割谷物加入可选池。建造后消耗蓝图。",
+    "effects": [
+      {
+        "type": "build-building",
+        "buildingId": "irrigated-farm"
+      }
+    ]
+  },
+  "harvest-grain": {
+    "name": "收割谷物",
+    "cost": 1,
+    "rarity": "blue",
+    "researchCost": 4,
+    "description": "获得 1 张谷物，价值 3 食物。",
+    "effects": [
+      {
+        "type": "gain-resource",
+        "resourceId": "grain",
+        "quantity": 1
+      }
+    ]
+  },
+  "build-scribe-house": {
+    "name": "书吏馆蓝图",
+    "cost": 4,
+    "rarity": "blue",
+    "researchCost": 12,
+    "description": "建成书吏馆，3 张记录知识加入可选池。建造后消耗蓝图。",
+    "effects": [
+      {
+        "type": "build-building",
+        "buildingId": "scribe-house"
+      }
+    ]
+  },
+  "record-knowledge": {
+    "name": "记录知识",
+    "cost": 1,
+    "rarity": "blue",
+    "researchCost": 4,
+    "description": "获得 3 科研。",
+    "effects": [
+      {
+        "type": "gain-research",
+        "amount": 3
+      }
+    ]
+  },
+  "build-hunting-camp": {
+    "name": "狩猎营地蓝图",
+    "cost": 3,
+    "rarity": "white",
+    "researchCost": 9,
+    "description": "建成狩猎营地，3 张协作狩猎加入可选池。建造后消耗蓝图。",
+    "effects": [
+      {
+        "type": "build-building",
+        "buildingId": "hunting-camp"
+      }
+    ]
+  },
+  "organized-hunt": {
+    "name": "协作狩猎",
+    "cost": 2,
+    "rarity": "white",
+    "researchCost": 4,
+    "description": "获得 1 张鲜肉，价值 3 食物。",
+    "effects": [
+      {
+        "type": "gain-resource",
+        "resourceId": "fresh-meat",
+        "quantity": 1
+      }
+    ]
+  },
+  "build-stone-workshop": {
+    "name": "石工作坊蓝图",
+    "cost": 3,
+    "rarity": "white",
+    "researchCost": 9,
+    "description": "建成石工作坊，3 张切割石材加入可选池。建造后消耗蓝图。",
+    "effects": [
+      {
+        "type": "build-building",
+        "buildingId": "stone-workshop"
+      }
+    ]
+  },
+  "cut-stone": {
+    "name": "切割石材",
+    "cost": 1,
+    "rarity": "white",
+    "researchCost": 4,
+    "description": "获得 2 锤和 1 科研。",
+    "effects": [
+      {
+        "type": "gain-hammers",
+        "amount": 2
+      },
+      {
+        "type": "gain-research",
+        "amount": 1
+      }
+    ]
+  },
+  "build-bronze-foundry": {
+    "name": "青铜铸坊蓝图",
+    "cost": 4,
+    "rarity": "blue",
+    "researchCost": 12,
+    "description": "建成青铜铸坊，3 张铸造工具加入可选池。建造后消耗蓝图。",
+    "effects": [
+      {
+        "type": "build-building",
+        "buildingId": "bronze-foundry"
+      }
+    ]
+  },
+  "cast-tools": {
+    "name": "铸造工具",
+    "cost": 1,
+    "rarity": "blue",
+    "researchCost": 4,
+    "description": "获得 3 锤。",
+    "effects": [
+      {
+        "type": "gain-hammers",
+        "amount": 3
+      }
+    ]
+  },
+  "build-wagon-yard": {
+    "name": "车马场蓝图",
+    "cost": 3,
+    "rarity": "blue",
+    "researchCost": 9,
+    "description": "建成车马场，3 张运输补给加入可选池。建造后消耗蓝图。",
+    "effects": [
+      {
+        "type": "build-building",
+        "buildingId": "wagon-yard"
+      }
+    ]
+  },
+  "transport-supplies": {
+    "name": "运输补给",
+    "cost": 1,
+    "rarity": "blue",
+    "researchCost": 4,
+    "description": "本周期供养需求减少 2。",
+    "effects": [
+      {
+        "type": "reduce-food-demand",
+        "amount": 2
+      }
+    ]
+  },
+  "build-fire-pit": {
+    "name": "火塘蓝图",
+    "cost": 2,
+    "rarity": "white",
+    "researchCost": 6,
+    "description": "建成火塘，提供 3 张烧烤食物到可选池。建造后消耗蓝图。",
+    "effects": [
+      {
+        "type": "build-building",
+        "buildingId": "fire-pit"
+      }
+    ]
+  },
+  "roast-food": {
+    "name": "烧烤食物",
+    "cost": 1,
+    "rarity": "blue",
+    "researchCost": 4,
+    "description": "加工第一张食物，价值 +1。需要已有食物。",
+    "effects": [
+      {
+        "type": "roast-food"
+      }
+    ]
   }
 }

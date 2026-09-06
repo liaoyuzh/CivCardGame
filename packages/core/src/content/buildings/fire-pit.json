@@ -1,5 +1,11 @@
 {
   "id": "fire-pit",
   "name": "火塘",
-  "availableCards": [{ "cardId": "roast-food", "count": 3 }]
+  "availableCards": [
+    {
+      "cardId": "roast-food",
+      "count": 3
+    }
+  ],
+  "rarity": "white"
 }

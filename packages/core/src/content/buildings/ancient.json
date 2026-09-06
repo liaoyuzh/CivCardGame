@@ -1,0 +1,123 @@
+[
+  {
+    "id": "pottery-kiln",
+    "name": "陶窑",
+    "rarity": "white",
+    "availableCards": [
+      {
+        "cardId": "make-pottery",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "id": "pasture",
+    "name": "牧场",
+    "rarity": "white",
+    "availableCards": [
+      {
+        "cardId": "tend-herds",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "id": "mine",
+    "name": "矿场",
+    "rarity": "white",
+    "availableCards": [
+      {
+        "cardId": "mine-stone",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "id": "fishing-dock",
+    "name": "渔港",
+    "rarity": "blue",
+    "availableCards": [
+      {
+        "cardId": "coastal-fishing",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "id": "star-circle",
+    "name": "观星台",
+    "rarity": "blue",
+    "availableCards": [
+      {
+        "cardId": "read-stars",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "id": "irrigated-farm",
+    "name": "灌溉农田",
+    "rarity": "blue",
+    "availableCards": [
+      {
+        "cardId": "harvest-grain",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "id": "scribe-house",
+    "name": "书吏馆",
+    "rarity": "blue",
+    "availableCards": [
+      {
+        "cardId": "record-knowledge",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "id": "hunting-camp",
+    "name": "狩猎营地",
+    "rarity": "white",
+    "availableCards": [
+      {
+        "cardId": "organized-hunt",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "id": "stone-workshop",
+    "name": "石工作坊",
+    "rarity": "white",
+    "availableCards": [
+      {
+        "cardId": "cut-stone",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "id": "bronze-foundry",
+    "name": "青铜铸坊",
+    "rarity": "blue",
+    "availableCards": [
+      {
+        "cardId": "cast-tools",
+        "count": 3
+      }
+    ]
+  },
+  {
+    "id": "wagon-yard",
+    "name": "车马场",
+    "rarity": "blue",
+    "availableCards": [
+      {
+        "cardId": "transport-supplies",
+        "count": 3
+      }
+    ]
+  }
+]

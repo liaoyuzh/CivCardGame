@@ -2,16 +2,105 @@
   "era": "ancient",
   "name": "远古时代",
   "technologies": [
-    { "id": "pottery", "cost": 6, "name": "制陶术", "prerequisites": [] },
-    { "id": "animal-husbandry", "cost": 6, "name": "畜牧业", "prerequisites": [] },
-    { "id": "mining", "cost": 6, "name": "采矿业", "prerequisites": [] },
-    { "id": "sailing", "cost": 12, "name": "航海术", "prerequisites": [] },
-    { "id": "astrology", "cost": 12, "name": "占星术", "prerequisites": [] },
-    { "id": "irrigation", "cost": 12, "name": "灌溉", "prerequisites": ["pottery"] },
-    { "id": "writing", "cost": 18, "name": "文字", "prerequisites": ["pottery"] },
-    { "id": "archery", "cost": 12, "name": "箭术", "prerequisites": ["animal-husbandry"] },
-    { "id": "masonry", "cost": 12, "name": "砌砖", "prerequisites": ["mining"] },
-    { "id": "bronze-working", "cost": 18, "name": "青铜器", "prerequisites": ["mining"] },
-    { "id": "wheel", "cost": 12, "name": "轮子", "prerequisites": ["mining"] }
+    {
+      "id": "pottery",
+      "cost": 6,
+      "name": "制陶术",
+      "prerequisites": [],
+      "rarity": "white",
+      "unlockBlueprint": "build-pottery-kiln"
+    },
+    {
+      "id": "animal-husbandry",
+      "cost": 6,
+      "name": "畜牧业",
+      "prerequisites": [],
+      "rarity": "white",
+      "unlockBlueprint": "build-pasture"
+    },
+    {
+      "id": "mining",
+      "cost": 6,
+      "name": "采矿业",
+      "prerequisites": [],
+      "rarity": "white",
+      "unlockBlueprint": "build-mine"
+    },
+    {
+      "id": "sailing",
+      "cost": 12,
+      "name": "航海术",
+      "prerequisites": [],
+      "rarity": "white",
+      "unlockBlueprint": "build-fishing-dock"
+    },
+    {
+      "id": "astrology",
+      "cost": 12,
+      "name": "占星术",
+      "prerequisites": [],
+      "rarity": "white",
+      "unlockBlueprint": "build-star-circle"
+    },
+    {
+      "id": "irrigation",
+      "cost": 12,
+      "name": "灌溉",
+      "prerequisites": [
+        "pottery"
+      ],
+      "rarity": "blue",
+      "unlockBlueprint": "build-irrigated-farm"
+    },
+    {
+      "id": "writing",
+      "cost": 18,
+      "name": "文字",
+      "prerequisites": [
+        "pottery"
+      ],
+      "rarity": "blue",
+      "unlockBlueprint": "build-scribe-house"
+    },
+    {
+      "id": "archery",
+      "cost": 12,
+      "name": "箭术",
+      "prerequisites": [
+        "animal-husbandry"
+      ],
+      "rarity": "blue",
+      "unlockBlueprint": "build-hunting-camp"
+    },
+    {
+      "id": "masonry",
+      "cost": 12,
+      "name": "砌砖",
+      "prerequisites": [
+        "mining"
+      ],
+      "rarity": "blue",
+      "unlockBlueprint": "build-stone-workshop"
+    },
+    {
+      "id": "bronze-working",
+      "cost": 18,
+      "name": "青铜器",
+      "prerequisites": [
+        "mining"
+      ],
+      "rarity": "blue",
+      "unlockBlueprint": "build-bronze-foundry"
+    },
+    {
+      "id": "wheel",
+      "cost": 12,
+      "name": "轮子",
+      "prerequisites": [
+        "mining"
+      ],
+      "rarity": "blue",
+      "unlockBlueprint": "build-wagon-yard"
+    }
   ]
 }

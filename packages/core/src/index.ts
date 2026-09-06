@@ -8,3 +8,7 @@ export * from './ports/RandomSource';
 export * from './rules/gameConfig';
 export * from './tutorial/BeginnerFoodDemo';
 export * from './tutorial/TechnologyTree';
+export * from './rules/centerRates';
+export * from './rules/researchShop';
+export * from './rules/rarity';
+export {buildingCatalog,blueprintBuilding} from './rules/reform';

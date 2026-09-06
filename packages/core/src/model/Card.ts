@@ -5,6 +5,7 @@ export interface Card {
   name: string;
   type: CardType;
   cost: number;
+  rarity?: 'white' | 'blue' | 'gold' | 'red';
   attack?: number;
   health?: number;
   abilities?: string[];
