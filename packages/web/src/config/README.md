@@ -1,49 +1,43 @@
 # Web demo configuration
 
-Edit `demo.json` to select `scene`: `regular` (default) or `tutorial`. Vite reloads edits during development; rebuild for deployment. This config selects a new game, not a saved game.
+Edit `demo.json` to select `scene`: `regular` (current game, default) or `tutorial` (historical three-cycle scripted lesson). Vite reloads config edits; deployed builds require rebuilding. These options start a new game, not a saved game.
 
-- `tutorial`: the existing three-cycle scripted lesson; ignores `customSetup`.
-- `regular`: starts at cycle one with active buildings, research and reform, without tutorial crisis triggers or a three-cycle limit.
-- `customSetup: null` or omitted: berry bush (40 uses, 9 actions/cycle), fully active tribe center, one permanent search card, 5 population. The center grants its initial 6 research once.
-- `setups` stores named setups, including unused ones. `customSetup` selects a key from this registry; a missing key is an error. Only the selected setup is validated and used. Set `customSetup` to null to keep definitions for later while using defaults.
-- A custom setup replaces the defaults entirely. Both arrays are required; empty arrays are allowed. Duplicate building IDs and unknown content IDs are rejected.
+## Regular game
 
-Example:
+- `customSetup: null` or omitted uses an explicit 12-card starter deck and berry bush / tribal center. Buildings do not add any cards. Default starting population is 5.
+- `setups` holds named configurations. `customSetup` selects one by name; missing names and invalid card/building IDs are rejected. Both `buildings` and `deck` arrays are required and may be empty.
+- `deck` entries use `{cardId, count}` with integer counts from 0 to 100. They describe the full active deck, including any research, reform and trade cards you want available.
+- A starting building unlocks research candidates, not free cards. Destroying it preserves owned cards.
+- Ordinary cards circulate between hand, draw pile and discard pile. Empty draw piles recycle discard cards; this never delays food consumption or grants additional turns.
+- End turn discards unused cards and settles food. Food stock is retained. Population zero ends the game. Reset recreates the chosen setup.
 
-```json
-{
-  "scene": "regular",
-  "customSetup": "research-start",
-  "setups": {
-    "research-start": {
-      "buildings": [
-        "berry-bush",
-        "tribal-center"
-      ],
-      "deck": [
-        {
-          "cardId": "search-food",
-          "count": 2
-        }
-      ]
-    },
-    "minimal": {
-      "buildings": [
-        "berry-bush"
-      ],
-      "deck": [
-        {
-          "cardId": "search-food",
-          "count": 1
-        }
-      ]
-    }
-  }
-}
-```
+## Global balance configuration
 
-Supported buildings: `berry-bush`, `tribal-center`. Deck IDs come from core `content/cards.json`: `search-food`, `gather-berries`, `research`, `reform`. Counts are integers 0–100 per entry. Deck entries are permanent cards; building-generated cards are added separately every cycle and are not listed here. Do not repeat building-provided cards in the setup deck: tribal-center supplies research ×1 and reform ×1, and berry-bush supplies gather-berries ×9. The example lists only search-food ×2, for 13 cards per cycle in total. Explicit deck entries create additional permanent copies, so they should only be used when that is intentional.
+Edit `packages/core/src/content/global-config.json`:
 
-Regular decks shuffle reproducibly each cycle. End turn can discard unplayed cards, allowing custom hands that exceed available labor. Reset recreates the selected setup. Research works from cycle one and the center is not re-granted on cycle three.
+| Field | Default | Meaning |
+| --- | ---: | --- |
+| FoodConsumptionPerPop | 1 | Food per population each turn; ceil the total, then apply demand modifiers |
+| BaseHammersPerTurn | 5 | Base labor, independent of population |
+| CardsPerTurn | 5 | Base cards drawn each turn |
+| StartingFoodTurns | 2 | Initial stock measured in base upkeep turns |
+| StartingGold | 3 | Initial trade currency |
+| StarvationLossPerMissingFood | 1 | Population lost per missing food |
+| PopulationGrowthSurplusRatio | 0.1 | Additional food payment for automatic growth, at least 1; once per turn |
+| TradeOfferCount | 5 | Fixed distinct offers per trade action |
 
-Current prototype limits: regular search uses the existing benign stored-nuts event until a balanced regular event pool is designed. Regular mode has no automatic ending: insufficient food consumes the available food, reports a shortage, and leaves population unchanged so the next cycle can start. Exhausted buildings and empty decks do not end the game. Tutorial still requires its scripted supply target and ends after three cycles. Without a center, no center effects run: no research income, food settlement, or population growth; food is still cleared between cycles. Building construction and crisis/cohesion progression remain future work.
+FoodConsumptionPerPop and PopulationGrowthSurplusRatio accept finite nonnegative fractions. Other values are finite nonnegative integers; card draw and trade offer counts must be positive.
+
+Growth and starvation defaults are provisional. With food efficiency near 1.5 per hammer, coefficient 1 creates much greater food pressure than the previous three-turn model. No production values were multiplied by three.
+
+The tribal center still controls passive population research via `content/buildings/tribal-center.json`. Its old food ratio applies only to the historical tutorial.
+
+## Shops and card timing
+
+Play research to spend bottles on technologies, unlocked blueprints and action candidates. Play trade to spend gold on foreign cards regardless of local technology. Play barter-goods to earn gold. Purchased cards go to the top of the draw pile immediately; no reform activation is required. Consecutive purchases place the latest card first.
+
+Reform moves cards into reserve without deleting ownership and can restore them to the top of the draw pile. The existing three-choice discovery operation remains available.
+
+## Legacy tutorial
+
+`tutorial` keeps the old scripted cycles, automatic building supply and original balance for regression purposes. It ignores custom setups and does not represent current regular rules. See `docs/brainstorms/014-turn-deckbuilding-implementation.md` for migration scope and remaining design questions.

@@ -1,9 +1,11 @@
+import {RegularGameView} from './RegularGameView';
 import {showReform} from './ReformView';
 import {growthFoodDemand,centerRates,totalFood,totalFoodDemand,buildingCatalog,rarityNames,rarityOf,type BeginnerFoodCommand,type BeginnerFoodState} from '@civ/core';
 import {showTechnologyTree} from './TechnologyTreeView';
 import {showResearchShop} from './ResearchShopView';
 
 export class BeginnerFoodView{
+  private regularView?:RegularGameView;
   private buildingsExpanded=false;
   private deckExpanded=false;
   private logExpanded=false;
@@ -12,6 +14,7 @@ export class BeginnerFoodView{
   constructor(private readonly root:HTMLElement,private readonly dispatch:(command:BeginnerFoodCommand)=>void){}
 
   render(state:BeginnerFoodState,error?:string):void{
+    if(state.runtime){this.regularView??=new RegularGameView(this.root,this.dispatch);this.regularView.render(state,error);return;}
     const food=totalFood(state),demand=totalFoodDemand(state);
     const labor=Math.max(0,state.population-state.sickWorkers);
     const foodPercent=demand===0?100:Math.min(100,food/demand*100);

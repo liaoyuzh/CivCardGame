@@ -3,104 +3,128 @@
   "name": "远古时代",
   "technologies": [
     {
-      "id": "pottery",
+      "id": "fishery",
+      "name": "Fishery",
       "cost": 6,
-      "name": "制陶术",
       "prerequisites": [],
       "rarity": "white",
-      "unlockBlueprint": "build-pottery-kiln"
+      "unlockBlueprint": "build-fishing-hut",
+      "displayColumn": 0
+    },
+    {
+      "id": "agriculture",
+      "name": "Agriculture",
+      "cost": 6,
+      "prerequisites": [],
+      "rarity": "white",
+      "unlockBlueprint": "build-farm",
+      "displayColumn": 0
+    },
+    {
+      "id": "hunting",
+      "name": "Hunting",
+      "cost": 6,
+      "prerequisites": [],
+      "rarity": "white",
+      "unlockBlueprint": "build-hunting-camp",
+      "displayColumn": 0
+    },
+    {
+      "id": "calendar",
+      "name": "Calendar",
+      "cost": 12,
+      "prerequisites": [
+        "fishery"
+      ],
+      "rarity": "blue",
+      "unlockBlueprint": "build-calendar-house",
+      "displayColumn": 1
+    },
+    {
+      "id": "pottery",
+      "name": "Pottery",
+      "cost": 12,
+      "prerequisites": [
+        "agriculture"
+      ],
+      "rarity": "blue",
+      "unlockBlueprint": "build-pottery-kiln",
+      "displayColumn": 1
     },
     {
       "id": "animal-husbandry",
-      "cost": 6,
-      "name": "畜牧业",
-      "prerequisites": [],
-      "rarity": "white",
-      "unlockBlueprint": "build-pasture"
+      "name": "Animal Husbandry",
+      "cost": 12,
+      "prerequisites": [
+        "hunting"
+      ],
+      "rarity": "blue",
+      "unlockBlueprint": "build-pasture",
+      "displayColumn": 1
     },
     {
-      "id": "mining",
-      "cost": 6,
-      "name": "采矿业",
+      "id": "bronze-working",
+      "name": "Bronze Working",
+      "cost": 12,
       "prerequisites": [],
-      "rarity": "white",
-      "unlockBlueprint": "build-mine"
+      "rarity": "blue",
+      "unlockBlueprint": "build-bronze-foundry",
+      "displayColumn": 1
     },
     {
       "id": "sailing",
-      "cost": 12,
-      "name": "航海术",
-      "prerequisites": [],
-      "rarity": "white",
-      "unlockBlueprint": "build-fishing-dock"
-    },
-    {
-      "id": "astrology",
-      "cost": 12,
-      "name": "占星术",
-      "prerequisites": [],
-      "rarity": "white",
-      "unlockBlueprint": "build-star-circle"
-    },
-    {
-      "id": "irrigation",
-      "cost": 12,
-      "name": "灌溉",
+      "name": "Sailing",
+      "cost": 18,
       "prerequisites": [
-        "pottery"
+        "calendar"
       ],
       "rarity": "blue",
-      "unlockBlueprint": "build-irrigated-farm"
+      "unlockBlueprint": "build-fishing-dock",
+      "displayColumn": 2
     },
     {
       "id": "writing",
+      "name": "Writing",
       "cost": 18,
-      "name": "文字",
       "prerequisites": [
         "pottery"
       ],
       "rarity": "blue",
-      "unlockBlueprint": "build-scribe-house"
+      "unlockBlueprint": "build-scribe-house",
+      "displayColumn": 2
     },
     {
-      "id": "archery",
-      "cost": 12,
-      "name": "箭术",
+      "id": "wheel",
+      "name": "The Wheel",
+      "cost": 18,
       "prerequisites": [
         "animal-husbandry"
       ],
       "rarity": "blue",
-      "unlockBlueprint": "build-hunting-camp"
+      "unlockBlueprint": "build-wagon-yard",
+      "displayColumn": 2
     },
     {
       "id": "masonry",
-      "cost": 12,
-      "name": "砌砖",
-      "prerequisites": [
-        "mining"
-      ],
-      "rarity": "blue",
-      "unlockBlueprint": "build-stone-workshop"
-    },
-    {
-      "id": "bronze-working",
+      "name": "Masonry",
       "cost": 18,
-      "name": "青铜器",
       "prerequisites": [
-        "mining"
+        "bronze-working"
       ],
       "rarity": "blue",
-      "unlockBlueprint": "build-bronze-foundry"
+      "unlockBlueprint": "build-stone-workshop",
+      "displayColumn": 2
     },
     {
-      "id": "wheel",
-      "cost": 12,
-      "name": "轮子",
+      "id": "iron-working",
+      "name": "Iron Working",
+      "cost": 18,
       "prerequisites": [
-        "mining"
+        "bronze-working"
       ],
       "rarity": "blue",
-      "unlockBlueprint": "build-wagon-yard"
+      "unlockBlueprint": "build-iron-foundry",
+      "displayColumn": 2
     }
   ]
 }

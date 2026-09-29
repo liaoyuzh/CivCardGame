@@ -8,7 +8,8 @@ it('uses configured food and research ratios including fractions and demand redu
   const food=center.foodPerPopulation,research=center.researchPerPopulation;
   try{
     center.foodPerPopulation=2;center.researchPerPopulation=0.5;
-    const state=createWebDemo({scene:'regular'});
+    const state=createWebDemo({scene:'tutorial'});
+    state.cycle=3;state.researchPoints=6;
     expect(totalFoodDemand(state)).toBe(10);
     triggerCenter(state,'turn-end');expect(state.researchPoints).toBe(9);
     applyEffects(state,[{type:'reduce-food-demand',amount:8}]);expect(totalFoodDemand(state)).toBe(2);

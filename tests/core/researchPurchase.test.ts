@@ -30,7 +30,7 @@ it('only purchases shown entries, checks funds, and never refreshes after a purc
   const action=result.state.researchOffers.find(item=>item.type==='action')!;
   const purchased=applyBeginnerFoodCommand(result.state,{type:'BUY_RESEARCH_OFFER',offerId:action.id}).state;
   expect(purchased.permanentDeck.at(-1)!.kind).toBe(action.contentId);
-  expect(purchased.cycleDeck.some(card=>card.id===purchased.permanentDeck.at(-1)!.id)).toBe(false);
+  expect(purchased.runtime!.drawPile[0].id).toBe(purchased.permanentDeck.at(-1)!.id);
   const closed=applyBeginnerFoodCommand(purchased,{type:'CLOSE_RESEARCH'}).state;
   expect(closed.researchOffers).toHaveLength(0);
   expect(applyBeginnerFoodCommand(closed,{type:'BUY_RESEARCH_OFFER',offerId:action.id}).error).toBeDefined();
@@ -45,7 +45,7 @@ it('honors configured counts and fills missing technologies with ordinary slots'
     expect(state.researchOffers).toHaveLength(6);expect(state.researchOffers.some(item=>item.type==='technology')).toBe(false);
   }finally{Object.assign(researchShopConfig,old);}
 });
-it('purchases, draws and consumes every ancient blueprint, then supplies reform cards with removable ownership',()=>{
+it('purchases and consumes every blueprint, unlocking shop actions without granting copies',()=>{
   const chance=researchShopConfig.blueprintChance;
   try{
     researchShopConfig.blueprintChance=1;
@@ -55,10 +55,10 @@ it('purchases, draws and consumes every ancient blueprint, then supplies reform 
       expect(offer).toBeDefined();expect(offer.type).toBe('blueprint');
       state=applyBeginnerFoodCommand(state,{type:'BUY_RESEARCH_OFFER',offerId:offer.id}).state;
       const blueprint=state.permanentDeck.find(card=>card.kind===tech.unlockBlueprint)!;
-      expect(state.cycleDeck.some(card=>card.id===blueprint.id)).toBe(false);
-      state=applyBeginnerFoodCommand(state,{type:'CLOSE_RESEARCH'}).state;state.phase='cycle-result';
-      state=applyBeginnerFoodCommand(state,{type:'CONTINUE_TUTORIAL'}).state;
-      while(!state.hand.some(card=>card.id===blueprint.id))state=applyBeginnerFoodCommand(state,{type:'END_TUTORIAL_TURN'}).state;
+      expect(state.runtime!.drawPile[0].id).toBe(blueprint.id);
+      state=applyBeginnerFoodCommand(state,{type:'CLOSE_RESEARCH'}).state;
+      state=applyBeginnerFoodCommand(state,{type:'END_TUTORIAL_TURN'}).state;
+      expect(state.hand.some(card=>card.id===blueprint.id)).toBe(true);
       const hammers=state.hammers;
       const built=applyBeginnerFoodCommand(state,{type:'PLAY_TUTORIAL_CARD',cardId:blueprint.id});expect(built.error).toBeUndefined();state=built.state;
       expect(state.hammers).toBe(hammers-blueprint.cost);
@@ -66,13 +66,21 @@ it('purchases, draws and consumes every ancient blueprint, then supplies reform 
       expect(state.buildings.some(item=>item.id===id)).toBe(true);
       expect(state.permanentDeck.some(card=>card.id===blueprint.id)).toBe(false);
       expect(state.cycleDeck.some(card=>card.id===blueprint.id)).toBe(false);
-      const count=buildingCatalog.find(item=>item.id===id)!.availableCards[0].count;
-      expect(state.availablePool.filter(card=>card.sourceBuildingId===id)).toHaveLength(count);
-      const available=state.availablePool.find(card=>card.sourceBuildingId===id)!;
-      openReform(state);state=applyBeginnerFoodCommand(state,{type:'REFORM',mode:'available',cardId:available.id}).state;
-      expect(state.permanentDeck.some(card=>card.id===available.id)).toBe(true);
+      expect(state.availablePool).toHaveLength(0);
+      const actionId=buildingCatalog.find(item=>item.id===id)!.availableCards[0].cardId;
+      let found=false;
+      for(let attempt=0;attempt<100&&!found;attempt++){
+        openResearchShop(state);found=state.researchOffers.some(item=>item.contentId===actionId);
+      }
+      expect(found).toBe(true);
+      const actionOffer=state.researchOffers.find(item=>item.contentId===actionId)!;
+      state=applyBeginnerFoodCommand(state,{type:'BUY_RESEARCH_OFFER',offerId:actionOffer.id}).state;
+      const bought=state.permanentDeck.at(-1)!;
+      state=applyBeginnerFoodCommand(state,{type:'CLOSE_RESEARCH'}).state;
       state=applyBeginnerFoodCommand(state,{type:'DESTROY_BUILDING',buildingId:id}).state;
-      expect([...state.permanentDeck,...state.availablePool,...state.hand,...state.cycleDeck].some(card=>card.sourceBuildingId===id)).toBe(false);
+      expect(state.permanentDeck.some(card=>card.id===bought.id)).toBe(true);
+      expect(state.runtime!.drawPile.some(card=>card.id===bought.id)).toBe(true);
+
     }
   }finally{researchShopConfig.blueprintChance=chance;}
 });

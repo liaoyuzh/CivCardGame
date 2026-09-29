@@ -1,0 +1,10 @@
+{
+  "FoodConsumptionPerPop": 1,
+  "BaseHammersPerTurn": 5,
+  "CardsPerTurn": 5,
+  "StartingFoodTurns": 2,
+  "StartingGold": 3,
+  "StarvationLossPerMissingFood": 1,
+  "PopulationGrowthSurplusRatio": 0.1,
+  "TradeOfferCount": 5
+}

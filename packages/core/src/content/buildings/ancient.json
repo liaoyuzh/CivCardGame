@@ -119,5 +119,49 @@
         "count": 3
       }
     ]
+  },
+  {
+    "id": "fishing-hut",
+    "name": "捕鱼棚",
+    "rarity": "white",
+    "availableCards": [
+      {
+        "count": 3,
+        "cardId": "river-fishing"
+      }
+    ]
+  },
+  {
+    "id": "farm",
+    "name": "农田",
+    "rarity": "white",
+    "availableCards": [
+      {
+        "count": 3,
+        "cardId": "cultivate-grain"
+      }
+    ]
+  },
+  {
+    "id": "calendar-house",
+    "name": "历法所",
+    "rarity": "blue",
+    "availableCards": [
+      {
+        "count": 3,
+        "cardId": "track-seasons"
+      }
+    ]
+  },
+  {
+    "id": "iron-foundry",
+    "name": "铁器工坊",
+    "rarity": "blue",
+    "availableCards": [
+      {
+        "count": 3,
+        "cardId": "forge-iron-tools"
+      }
+    ]
   }
 ]

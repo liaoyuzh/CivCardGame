@@ -2,8 +2,18 @@ import {describe,it,expect} from 'vitest';
 import {ancientTechnologyTree,technologyLayers,createBeginnerFoodDemo,applyBeginnerFoodCommand,type BeginnerFoodState} from '@civ/core';
 
 describe('ancient research introduction',()=>{
+  it('matches the visible names and prerequisite branches in the reference image',()=>{
+    const techs=ancientTechnologyTree.technologies;
+    const names=new Map(techs.map(tech=>[tech.id,tech.name]));
+    expect(techs.map(tech=>[tech.name,tech.prerequisites.map(id=>names.get(id))])).toEqual([
+      ['Fishery',[]],['Agriculture',[]],['Hunting',[]],
+      ['Calendar',['Fishery']],['Pottery',['Agriculture']],['Animal Husbandry',['Hunting']],
+      ['Bronze Working',[]],['Sailing',['Calendar']],['Writing',['Pottery']],
+      ['The Wheel',['Animal Husbandry']],['Masonry',['Bronze Working']],['Iron Working',['Bronze Working']],
+    ]);
+  });
   it('validates editable dependencies including cycles and missing ids',()=>{
-    expect(technologyLayers(ancientTechnologyTree.technologies).flat()).toHaveLength(11);
+    expect(technologyLayers(ancientTechnologyTree.technologies).flat()).toHaveLength(12);
     expect(()=>technologyLayers([{id:'a',name:'a',prerequisites:['missing']}])).toThrow();
     expect(()=>technologyLayers([{id:'a',name:'a',prerequisites:['b']},{id:'b',name:'b',prerequisites:['a']}])).toThrow();
     expect(()=>technologyLayers([{id:'a',name:'a',prerequisites:[]},{id:'a',name:'a',prerequisites:[]}])).toThrow();

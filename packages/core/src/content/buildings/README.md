@@ -1,3 +1,5 @@
+> 2026-09-29 更新：自由模式每回合供养改由 `../global-config.json` 的 `FoodConsumptionPerPop` 控制，不依赖部落中心。下文 `foodPerPopulation` 的周期规则仅供旧教学脚本使用。`researchPerPopulation` 仍控制两种模式的部落中心科研产出。自由模式建筑 `availableCards` 只提供科研候选，`count` 不再发放实体牌，建筑损坏不删除已购牌。
+
 # 部落中心人口比例
 
 编辑 `tribal-center.json`：

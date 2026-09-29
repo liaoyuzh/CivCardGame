@@ -20,7 +20,11 @@ export function showTechnologyTree(root:HTMLElement,_research:boolean,onClose:()
   const tree=document.createElement('div');tree.className='technology-tree';
   // Allocate each primary branch its own rows; keep every prerequisite as a visible edge.
   const positions=new Map<string,{x:number;y:number}>();
-  const depths=new Map(layers.flatMap((layer,depth)=>layer.map(tech=>[tech.id,depth] as const)));
+  const depths=new Map<string,number>();
+  for(const layer of layers)for(const tech of layer){
+    const definition=technologies.find(item=>item.id===tech.id)!;
+    depths.set(tech.id,Math.max(definition.displayColumn,...tech.prerequisites.map(id=>depths.get(id)!+1)));
+  }
   let row=0;
   function place(id:string):number {
     const children=technologies.filter(tech=>tech.prerequisites[0]===id);
@@ -30,9 +34,10 @@ export function showTechnologyTree(root:HTMLElement,_research:boolean,onClose:()
     return center;
   }
   technologies.filter(tech=>!tech.prerequisites.length).forEach(tech=>place(tech.id));
-  const width=Math.max(620,layers.length*330-40),height=56+row*150;
+  const columnCount=Math.max(...depths.values())+1;
+  const width=Math.max(620,columnCount*330-40),height=56+row*150;
   tree.style.width=`${width}px`;tree.style.height=`${height}px`;
-  layers.forEach((_,index)=>{
+  Array.from({length:columnCount}).forEach((_,index)=>{
     const label=document.createElement('div');label.className='technology-layer-title';label.style.left=`${24+index*330}px`;label.textContent=index===0?'01 / 起始科技':`${String(index+1).padStart(2,'0')} / 进阶科技`;tree.append(label);
   });
   const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.classList.add('technology-connections');svg.setAttribute('width',String(width));svg.setAttribute('height',String(height));svg.setAttribute('aria-hidden','true');

@@ -489,5 +489,136 @@
         "type": "roast-food"
       }
     ]
+  },
+  "build-fishing-hut": {
+    "name": "捕鱼棚蓝图",
+    "cost": 2,
+    "rarity": "white",
+    "researchCost": 6,
+    "description": "建成捕鱼棚，3 张河岸捕鱼加入可选池。建造后消耗蓝图。",
+    "effects": [
+      {
+        "type": "build-building",
+        "buildingId": "fishing-hut"
+      }
+    ]
+  },
+  "river-fishing": {
+    "name": "河岸捕鱼",
+    "cost": 1,
+    "rarity": "white",
+    "researchCost": 4,
+    "description": "获得 1 张鱼，价值 2 食物。",
+    "effects": [
+      {
+        "resourceId": "fish",
+        "type": "gain-resource",
+        "quantity": 1
+      }
+    ]
+  },
+  "build-farm": {
+    "name": "农田蓝图",
+    "cost": 2,
+    "rarity": "white",
+    "researchCost": 6,
+    "description": "建成农田，3 张耕种谷物加入可选池。建造后消耗蓝图。",
+    "effects": [
+      {
+        "type": "build-building",
+        "buildingId": "farm"
+      }
+    ]
+  },
+  "cultivate-grain": {
+    "name": "耕种谷物",
+    "cost": 2,
+    "rarity": "white",
+    "researchCost": 4,
+    "description": "获得 1 张谷物，价值 3 食物。",
+    "effects": [
+      {
+        "resourceId": "grain",
+        "type": "gain-resource",
+        "quantity": 1
+      }
+    ]
+  },
+  "build-calendar-house": {
+    "name": "历法所蓝图",
+    "cost": 3,
+    "rarity": "blue",
+    "researchCost": 9,
+    "description": "建成历法所，3 张记录节气加入可选池。建造后消耗蓝图。",
+    "effects": [
+      {
+        "type": "build-building",
+        "buildingId": "calendar-house"
+      }
+    ]
+  },
+  "track-seasons": {
+    "name": "记录节气",
+    "cost": 1,
+    "rarity": "blue",
+    "researchCost": 4,
+    "description": "获得 2 科研。",
+    "effects": [
+      {
+        "type": "gain-research",
+        "amount": 2
+      }
+    ]
+  },
+  "build-iron-foundry": {
+    "name": "铁器工坊蓝图",
+    "cost": 4,
+    "rarity": "blue",
+    "researchCost": 12,
+    "description": "建成铁器工坊，3 张锻造铁器加入可选池。建造后消耗蓝图。",
+    "effects": [
+      {
+        "type": "build-building",
+        "buildingId": "iron-foundry"
+      }
+    ]
+  },
+  "forge-iron-tools": {
+    "name": "锻造铁器",
+    "cost": 1,
+    "rarity": "blue",
+    "researchCost": 4,
+    "description": "获得 4 锤。",
+    "effects": [
+      {
+        "type": "gain-hammers",
+        "amount": 4
+      }
+    ]
+  },
+  "trade": {
+    "name": "贸易",
+    "cost": 1,
+    "rarity": "blue",
+    "researchCost": 6,
+    "description": "打开贸易商店，用金币购买外域卡牌。",
+    "effects": [
+      {
+        "type": "open-trade"
+      }
+    ]
+  },
+  "barter-goods": {
+    "name": "交换物资",
+    "cost": 1,
+    "rarity": "white",
+    "researchCost": 4,
+    "description": "获得 2 金币。",
+    "effects": [
+      {
+        "type": "gain-gold",
+        "amount": 2
+      }
+    ]
   }
 }

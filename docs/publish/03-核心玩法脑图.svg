@@ -1,0 +1,287 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="5000" height="4214" viewBox="0 0 5000 4214" role="img">
+<title>文明 Like 卡牌策略游戏｜单回合流程与核心模块</title>
+<style>text{font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif} .light{font-weight:400}.bold{font-weight:700}</style>
+<rect x="0" y="0" width="5000" height="4214" rx="0" fill="#f7f6f2"/>
+<rect x="0" y="0" width="5000" height="12" rx="0" fill="#1e3846"/>
+<text x="90" y="102" font-size="34" fill="#527271" class="bold">文明 LIKE</text>
+<text x="90" y="180" font-size="64" fill="#172f3d" class="bold">单回合流程与核心模块</text>
+<text x="91" y="234" font-size="28" fill="#65777f" class="light">普通回合 · 卡组调整 · 危机应对 · 紧急回合</text>
+<text x="3630" y="102" font-size="30" fill="#526771" class="light">阶段性成果 v0.2 · 2026.09.10</text>
+<text x="3630" y="158" font-size="28" fill="#9b6d1f" class="light">【待落实】未定事项</text>
+<text x="3630" y="204" font-size="28" fill="#78518e" class="light">【暂定规则】已确认的临时设计</text>
+<rect x="2190" y="2074.0" width="620" height="256" rx="26" fill="#193c49"/>
+<text x="2235" y="2144.0" font-size="46" fill="#ffffff" class="bold">文明 Like</text>
+<text x="2235" y="2206.0" font-size="44" fill="#ffffff" class="bold">卡牌策略游戏</text>
+<text x="2235" y="2266.0" font-size="27" fill="#c9e2df" class="light">单回合流程与核心模块</text>
+<text x="2235" y="2306.0" font-size="25" fill="#c9e2df" class="light">阶段性设计 · v0.2</text>
+<path d="M 2190 2202.0 C 2160.0 2202.0, 2160.0 637.0, 2130 637.0" fill="none" stroke="#b04b3f" stroke-width="3" stroke-linecap="round"/>
+<rect x="1710" y="592.0" width="420" height="90" rx="18" fill="#b04b3f"/>
+<text x="1734" y="649.0" font-size="34" fill="#ffffff" class="bold">01  开始与资源</text>
+<path d="M 1710 637.0 C 1665.0 637.0, 1665.0 411.0, 1620 411.0" fill="none" stroke="#b04b3f" stroke-width="2" stroke-linecap="round"/>
+<rect x="90" y="310.0" width="1530" height="202" rx="14" fill="#f8efee"/>
+<rect x="90" y="310.0" width="7" height="202" rx="2" fill="#b04b3f"/>
+<text x="118" y="357.0" font-size="32" fill="#b04b3f" class="bold">建立当前局势</text>
+<text x="121" y="403.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="403.0" font-size="30" fill="#203b48" class="light">处理回合开始效果，展示持续状态与危机</text>
+<text x="121" y="458.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="458.0" font-size="30" fill="#203b48" class="light">根据人口与适用效果确定普通劳动力</text>
+<path d="M 1710 637.0 C 1665.0 637.0, 1665.0 637.0, 1620 637.0" fill="none" stroke="#b04b3f" stroke-width="2" stroke-linecap="round"/>
+<rect x="90" y="536.0" width="1530" height="202" rx="14" fill="#f8efee"/>
+<rect x="90" y="536.0" width="7" height="202" rx="2" fill="#b04b3f"/>
+<text x="118" y="583.0" font-size="32" fill="#b04b3f" class="bold">人口与劳动</text>
+<text x="121" y="629.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="629.0" font-size="30" fill="#203b48" class="light">劳动力最低为0，不产生欠额</text>
+<text x="121" y="684.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="684.0" font-size="30" fill="#203b48" class="light">失能与人口损失分别配置；人口减少即时影响剩余劳动力</text>
+<path d="M 1710 637.0 C 1665.0 637.0, 1665.0 863.0, 1620 863.0" fill="none" stroke="#b04b3f" stroke-width="2" stroke-linecap="round"/>
+<rect x="90" y="762.0" width="1530" height="202" rx="14" fill="#f8efee"/>
+<rect x="90" y="762.0" width="7" height="202" rx="2" fill="#b04b3f"/>
+<text x="118" y="809.0" font-size="32" fill="#b04b3f" class="bold">资源框架</text>
+<text x="121" y="855.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="855.0" font-size="30" fill="#203b48" class="light">食物用于供养；金币为经济资源；文明值连接发展</text>
+<text x="121" y="910.0" font-size="26" fill="#946717" class="light">•</text>
+<text x="152" y="910.0" font-size="30" fill="#946717" class="light">【待落实】供养数值、人口增长、资源保存与恢复</text>
+<path d="M 2190 2202.0 C 2160.0 2202.0, 2160.0 1363.0, 2130 1363.0" fill="none" stroke="#526d9f" stroke-width="3" stroke-linecap="round"/>
+<rect x="1710" y="1318.0" width="420" height="90" rx="18" fill="#526d9f"/>
+<text x="1734" y="1375.0" font-size="34" fill="#ffffff" class="bold">02  抽牌模块</text>
+<path d="M 1710 1363.0 C 1665.0 1363.0, 1665.0 1137.0, 1620 1137.0" fill="none" stroke="#526d9f" stroke-width="2" stroke-linecap="round"/>
+<rect x="90" y="1036.0" width="1530" height="202" rx="14" fill="#eff2f6"/>
+<rect x="90" y="1036.0" width="7" height="202" rx="2" fill="#526d9f"/>
+<text x="118" y="1083.0" font-size="32" fill="#526d9f" class="bold">已确认方向</text>
+<text x="121" y="1129.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="1129.0" font-size="30" fill="#203b48" class="light">先取得基础手牌</text>
+<text x="121" y="1184.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="1184.0" font-size="30" fill="#203b48" class="light">普通行动期间，通过有限主动过牌继续获取行动</text>
+<path d="M 1710 1363.0 C 1665.0 1363.0, 1665.0 1363.0, 1620 1363.0" fill="none" stroke="#526d9f" stroke-width="2" stroke-linecap="round"/>
+<rect x="90" y="1262.0" width="1530" height="202" rx="14" fill="#eff2f6"/>
+<rect x="90" y="1262.0" width="7" height="202" rx="2" fill="#526d9f"/>
+<text x="118" y="1309.0" font-size="32" fill="#526d9f" class="bold">具体规则</text>
+<text x="121" y="1355.0" font-size="26" fill="#946717" class="light">•</text>
+<text x="152" y="1355.0" font-size="30" fill="#946717" class="light">【待落实】抽牌时点、数量、代价、手牌规模</text>
+<text x="121" y="1410.0" font-size="26" fill="#946717" class="light">•</text>
+<text x="152" y="1410.0" font-size="30" fill="#946717" class="light">【待落实】未出手牌处理、回收、洗牌与牌库耗尽</text>
+<path d="M 1710 1363.0 C 1665.0 1363.0, 1665.0 1589.0, 1620 1589.0" fill="none" stroke="#526d9f" stroke-width="2" stroke-linecap="round"/>
+<rect x="90" y="1488.0" width="1530" height="202" rx="14" fill="#eff2f6"/>
+<rect x="90" y="1488.0" width="7" height="202" rx="2" fill="#526d9f"/>
+<text x="118" y="1535.0" font-size="32" fill="#526d9f" class="bold">改革接口</text>
+<text x="121" y="1581.0" font-size="26" fill="#946717" class="light">•</text>
+<text x="152" y="1581.0" font-size="30" fill="#946717" class="light">【待落实】改革后加入抽牌体系的具体过程</text>
+<text x="121" y="1636.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="1636.0" font-size="30" fill="#203b48" class="light">不预设未出手牌保留，也不预设自动洗回弃牌堆</text>
+<path d="M 2190 2202.0 C 2160.0 2202.0, 2160.0 2089.0, 2130 2089.0" fill="none" stroke="#aa6a2f" stroke-width="3" stroke-linecap="round"/>
+<rect x="1710" y="2044.0" width="420" height="90" rx="18" fill="#aa6a2f"/>
+<text x="1734" y="2101.0" font-size="34" fill="#ffffff" class="bold">03  行动阶段</text>
+<path d="M 1710 2089.0 C 1665.0 2089.0, 1665.0 1863.0, 1620 1863.0" fill="none" stroke="#aa6a2f" stroke-width="2" stroke-linecap="round"/>
+<rect x="90" y="1762.0" width="1530" height="202" rx="14" fill="#f7f2ec"/>
+<rect x="90" y="1762.0" width="7" height="202" rx="2" fill="#aa6a2f"/>
+<text x="118" y="1809.0" font-size="32" fill="#aa6a2f" class="bold">单次行动</text>
+<text x="121" y="1855.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="1855.0" font-size="30" fill="#203b48" class="light">选择卡牌与目标 → 检查条件 → 支付费用 → 完整结算</text>
+<text x="121" y="1910.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="1910.0" font-size="30" fill="#203b48" class="light">费用按卡面定义，可以为0</text>
+<path d="M 1710 2089.0 C 1665.0 2089.0, 1665.0 2089.0, 1620 2089.0" fill="none" stroke="#aa6a2f" stroke-width="2" stroke-linecap="round"/>
+<rect x="90" y="1988.0" width="1530" height="202" rx="14" fill="#f7f2ec"/>
+<rect x="90" y="1988.0" width="7" height="202" rx="2" fill="#aa6a2f"/>
+<text x="118" y="2035.0" font-size="32" fill="#aa6a2f" class="bold">即时产出</text>
+<text x="121" y="2081.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="2081.0" font-size="30" fill="#203b48" class="light">直接收益在行动结算时发放</text>
+<text x="121" y="2136.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="2136.0" font-size="30" fill="#203b48" class="light">回合末修正记录到指定节点，不与即时产出混用</text>
+<path d="M 1710 2089.0 C 1665.0 2089.0, 1665.0 2315.0, 1620 2315.0" fill="none" stroke="#aa6a2f" stroke-width="2" stroke-linecap="round"/>
+<rect x="90" y="2214.0" width="1530" height="202" rx="14" fill="#f7f2ec"/>
+<rect x="90" y="2214.0" width="7" height="202" rx="2" fill="#aa6a2f"/>
+<text x="118" y="2261.0" font-size="32" fill="#aa6a2f" class="bold">执行与反馈</text>
+<text x="121" y="2307.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="2307.0" font-size="30" fill="#203b48" class="light">资源、事件及危机进度即时更新</text>
+<text x="121" y="2362.0" font-size="26" fill="#946717" class="light">•</text>
+<text x="152" y="2362.0" font-size="30" fill="#946717" class="light">【待落实】复合效果顺序与完整行动字段</text>
+<path d="M 2190 2202.0 C 2160.0 2202.0, 2160.0 2928.0, 2130 2928.0" fill="none" stroke="#32785f" stroke-width="3" stroke-linecap="round"/>
+<rect x="1710" y="2883.0" width="420" height="90" rx="18" fill="#32785f"/>
+<text x="1734" y="2940.0" font-size="34" fill="#ffffff" class="bold">04  反馈与改革</text>
+<path d="M 1710 2928.0 C 1665.0 2928.0, 1665.0 2589.0, 1620 2589.0" fill="none" stroke="#32785f" stroke-width="2" stroke-linecap="round"/>
+<rect x="90" y="2488.0" width="1530" height="202" rx="14" fill="#edf3f1"/>
+<rect x="90" y="2488.0" width="7" height="202" rx="2" fill="#32785f"/>
+<text x="118" y="2535.0" font-size="32" fill="#32785f" class="bold">行动中的循环</text>
+<text x="121" y="2581.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="2581.0" font-size="30" fill="#203b48" class="light">出牌 → 反馈 → 调整安排 → 再出牌</text>
+<text x="121" y="2636.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="2636.0" font-size="30" fill="#203b48" class="light">改革通过卡牌或明确效果执行</text>
+<path d="M 1710 2928.0 C 1665.0 2928.0, 1665.0 2815.0, 1620 2815.0" fill="none" stroke="#32785f" stroke-width="2" stroke-linecap="round"/>
+<rect x="90" y="2714.0" width="1530" height="202" rx="14" fill="#edf3f1"/>
+<rect x="90" y="2714.0" width="7" height="202" rx="2" fill="#32785f"/>
+<text x="118" y="2761.0" font-size="32" fill="#32785f" class="bold">卡组与额外卡组</text>
+<text x="121" y="2807.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="2807.0" font-size="30" fill="#203b48" class="light">卡组＝手牌＋抽牌堆＋弃牌堆</text>
+<text x="121" y="2862.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="2862.0" font-size="30" fill="#203b48" class="light">调出进入额外卡组；调入原则上进入卡组</text>
+<path d="M 1710 2928.0 C 1665.0 2928.0, 1665.0 3041.0, 1620 3041.0" fill="none" stroke="#32785f" stroke-width="2" stroke-linecap="round"/>
+<rect x="90" y="2940.0" width="1530" height="202" rx="14" fill="#edf3f1"/>
+<rect x="90" y="2940.0" width="7" height="202" rx="2" fill="#32785f"/>
+<text x="118" y="2987.0" font-size="32" fill="#32785f" class="bold">双线改革</text>
+<text x="121" y="3033.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="3033.0" font-size="30" fill="#203b48" class="light">专用改革卡＝大改革；行动伴生改革＝小改革</text>
+<text x="121" y="3088.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="3088.0" font-size="30" fill="#203b48" class="light">小改革通过卡面价值亏模平衡</text>
+<path d="M 1710 2928.0 C 1665.0 2928.0, 1665.0 3267.0, 1620 3267.0" fill="none" stroke="#32785f" stroke-width="2" stroke-linecap="round"/>
+<rect x="90" y="3166.0" width="1530" height="202" rx="14" fill="#edf3f1"/>
+<rect x="90" y="3166.0" width="7" height="202" rx="2" fill="#32785f"/>
+<text x="118" y="3213.0" font-size="32" fill="#32785f" class="bold">改革操作</text>
+<text x="121" y="3259.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="3259.0" font-size="30" fill="#203b48" class="light">保留三选一；【暂定规则】换牌一次一张、一换一</text>
+<text x="121" y="3314.0" font-size="26" fill="#946717" class="light">•</text>
+<text x="152" y="3314.0" font-size="30" fill="#946717" class="light">【待落实】精简方式、能力、费用、容量及亏模幅度</text>
+<path d="M 2190 2202.0 C 2160.0 2202.0, 2160.0 3767.0, 2130 3767.0" fill="none" stroke="#377a91" stroke-width="3" stroke-linecap="round"/>
+<rect x="1710" y="3722.0" width="420" height="90" rx="18" fill="#377a91"/>
+<text x="1734" y="3779.0" font-size="34" fill="#ffffff" class="bold">05  结束阶段</text>
+<path d="M 1710 3767.0 C 1665.0 3767.0, 1665.0 3541.0, 1620 3541.0" fill="none" stroke="#377a91" stroke-width="2" stroke-linecap="round"/>
+<rect x="90" y="3440.0" width="1530" height="202" rx="14" fill="#edf3f5"/>
+<rect x="90" y="3440.0" width="7" height="202" rx="2" fill="#377a91"/>
+<text x="118" y="3487.0" font-size="32" fill="#377a91" class="bold">玩家主动结束</text>
+<text x="121" y="3533.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="3533.0" font-size="30" fill="#203b48" class="light">【结束回合】可提前点击</text>
+<text x="121" y="3588.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="3588.0" font-size="30" fill="#203b48" class="light">无合法操作时高亮，不自动结束</text>
+<path d="M 1710 3767.0 C 1665.0 3767.0, 1665.0 3767.0, 1620 3767.0" fill="none" stroke="#377a91" stroke-width="2" stroke-linecap="round"/>
+<rect x="90" y="3666.0" width="1530" height="202" rx="14" fill="#edf3f5"/>
+<rect x="90" y="3666.0" width="7" height="202" rx="2" fill="#377a91"/>
+<text x="118" y="3713.0" font-size="32" fill="#377a91" class="bold">回合末处理</text>
+<text x="121" y="3759.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="152" y="3759.0" font-size="30" fill="#203b48" class="light">处理供养与指定回合末效果</text>
+<text x="121" y="3814.0" font-size="26" fill="#946717" class="light">•</text>
+<text x="152" y="3814.0" font-size="30" fill="#946717" class="light">未到期危机继续保留；未出手牌处理【待落实】</text>
+<path d="M 1710 3767.0 C 1665.0 3767.0, 1665.0 3993.0, 1620 3993.0" fill="none" stroke="#377a91" stroke-width="2" stroke-linecap="round"/>
+<rect x="90" y="3892.0" width="1530" height="202" rx="14" fill="#edf3f5"/>
+<rect x="90" y="3892.0" width="7" height="202" rx="2" fill="#377a91"/>
+<text x="118" y="3939.0" font-size="32" fill="#377a91" class="bold">结算边界</text>
+<text x="121" y="3985.0" font-size="26" fill="#946717" class="light">•</text>
+<text x="152" y="3985.0" font-size="30" fill="#946717" class="light">【待落实】资源、供养、人口变化和状态移除顺序</text>
+<text x="121" y="4040.0" font-size="26" fill="#946717" class="light">•</text>
+<text x="152" y="4040.0" font-size="30" fill="#946717" class="light">人口全部损失即失败；精确判定时点【待落实】</text>
+<path d="M 2810 2202.0 C 2840.0 2202.0, 2840.0 887.0, 2870 887.0" fill="none" stroke="#a85543" stroke-width="3" stroke-linecap="round"/>
+<rect x="2870" y="842.0" width="420" height="90" rx="18" fill="#a85543"/>
+<text x="2894" y="899.0" font-size="34" fill="#ffffff" class="bold">06  危机应对</text>
+<path d="M 3290 887.0 C 3335.0 887.0, 3335.0 661.0, 3380 661.0" fill="none" stroke="#a85543" stroke-width="2" stroke-linecap="round"/>
+<rect x="3380" y="560.0" width="1530" height="202" rx="14" fill="#f7f0ee"/>
+<rect x="3380" y="560.0" width="7" height="202" rx="2" fill="#a85543"/>
+<text x="3408" y="607.0" font-size="32" fill="#a85543" class="bold">独立运行</text>
+<text x="3411" y="653.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="653.0" font-size="30" fill="#203b48" class="light">自身要求、进度、期限与结算逻辑</text>
+<text x="3411" y="708.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="708.0" font-size="30" fill="#203b48" class="light">完成要求不等于立即结算；普通回合结束不提前结算</text>
+<path d="M 3290 887.0 C 3335.0 887.0, 3335.0 887.0, 3380 887.0" fill="none" stroke="#a85543" stroke-width="2" stroke-linecap="round"/>
+<rect x="3380" y="786.0" width="1530" height="202" rx="14" fill="#f7f0ee"/>
+<rect x="3380" y="786.0" width="7" height="202" rx="2" fill="#a85543"/>
+<text x="3408" y="833.0" font-size="32" fill="#a85543" class="bold">风险与信息</text>
+<text x="3411" y="879.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="879.0" font-size="30" fill="#203b48" class="light">危机指数指规模，风险度指触发可能性</text>
+<text x="3411" y="934.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="934.0" font-size="30" fill="#203b48" class="light">危机可包含正向机遇；可知信息受文明水平影响</text>
+<path d="M 3290 887.0 C 3335.0 887.0, 3335.0 1113.0, 3380 1113.0" fill="none" stroke="#a85543" stroke-width="2" stroke-linecap="round"/>
+<rect x="3380" y="1012.0" width="1530" height="202" rx="14" fill="#f7f0ee"/>
+<rect x="3380" y="1012.0" width="7" height="202" rx="2" fill="#a85543"/>
+<text x="3408" y="1059.0" font-size="32" fill="#a85543" class="bold">奖惩与取舍</text>
+<text x="3411" y="1105.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="1105.0" font-size="30" fill="#203b48" class="light">奖励在危机实际结算时发放；未完成承担后果</text>
+<text x="3411" y="1160.0" font-size="26" fill="#946717" class="light">•</text>
+<text x="3442" y="1160.0" font-size="30" fill="#946717" class="light">【待落实】危机池、等级、任务、计数、主动延缓与多危机</text>
+<path d="M 2810 2202.0 C 2840.0 2202.0, 2840.0 1726.0, 2870 1726.0" fill="none" stroke="#287f7d" stroke-width="3" stroke-linecap="round"/>
+<rect x="2870" y="1681.0" width="420" height="90" rx="18" fill="#287f7d"/>
+<text x="2894" y="1738.0" font-size="34" fill="#ffffff" class="bold">07  紧急回合</text>
+<path d="M 3290 1726.0 C 3335.0 1726.0, 3335.0 1387.0, 3380 1387.0" fill="none" stroke="#287f7d" stroke-width="2" stroke-linecap="round"/>
+<rect x="3380" y="1286.0" width="1530" height="202" rx="14" fill="#ecf3f3"/>
+<rect x="3380" y="1286.0" width="7" height="202" rx="2" fill="#287f7d"/>
+<text x="3408" y="1333.0" font-size="32" fill="#287f7d" class="bold">大型危机插入</text>
+<text x="3411" y="1379.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="1379.0" font-size="30" fill="#203b48" class="light">当前行动全部结算后插入；结束后返回原流程</text>
+<text x="3411" y="1434.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="1434.0" font-size="30" fill="#203b48" class="light">使用已有手牌与卡组，其他危机计数冻结</text>
+<path d="M 3290 1726.0 C 3335.0 1726.0, 3335.0 1613.0, 3380 1613.0" fill="none" stroke="#287f7d" stroke-width="2" stroke-linecap="round"/>
+<rect x="3380" y="1512.0" width="1530" height="202" rx="14" fill="#ecf3f3"/>
+<rect x="3380" y="1512.0" width="7" height="202" rx="2" fill="#287f7d"/>
+<text x="3408" y="1559.0" font-size="32" fill="#287f7d" class="bold">临时集中应对</text>
+<text x="3411" y="1605.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="1605.0" font-size="30" fill="#203b48" class="light">可启用独立劳动力与卡牌资源能力</text>
+<text x="3411" y="1660.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="1660.0" font-size="30" fill="#203b48" class="light">可配置时间、出牌、资源等限制；不限定只有这些形式</text>
+<path d="M 3290 1726.0 C 3335.0 1726.0, 3335.0 1839.0, 3380 1839.0" fill="none" stroke="#287f7d" stroke-width="2" stroke-linecap="round"/>
+<rect x="3380" y="1738.0" width="1530" height="202" rx="14" fill="#ecf3f3"/>
+<rect x="3380" y="1738.0" width="7" height="202" rx="2" fill="#287f7d"/>
+<text x="3408" y="1785.0" font-size="32" fill="#287f7d" class="bold">退出与清理</text>
+<text x="3411" y="1831.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="1831.0" font-size="30" fill="#203b48" class="light">允许提前结束，不改变危机自身结算机制</text>
+<text x="3411" y="1886.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="1886.0" font-size="30" fill="#203b48" class="light">未用临时劳动力清零，临时卡牌清理、弃掉</text>
+<path d="M 3290 1726.0 C 3335.0 1726.0, 3335.0 2065.0, 3380 2065.0" fill="none" stroke="#287f7d" stroke-width="2" stroke-linecap="round"/>
+<rect x="3380" y="1964.0" width="1530" height="202" rx="14" fill="#ecf3f3"/>
+<rect x="3380" y="1964.0" width="7" height="202" rx="2" fill="#287f7d"/>
+<text x="3408" y="2011.0" font-size="32" fill="#287f7d" class="bold">边界</text>
+<text x="3411" y="2057.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="2057.0" font-size="30" fill="#203b48" class="light">原则上不嵌套；无政府可以触发且已有状态保持</text>
+<text x="3411" y="2112.0" font-size="26" fill="#946717" class="light">•</text>
+<text x="3442" y="2112.0" font-size="30" fill="#946717" class="light">【待落实】参数、目标计数、清理去向与结束细则</text>
+<path d="M 2810 2202.0 C 2840.0 2202.0, 2840.0 2678.0, 2870 2678.0" fill="none" stroke="#78518e" stroke-width="3" stroke-linecap="round"/>
+<rect x="2870" y="2633.0" width="420" height="90" rx="18" fill="#78518e"/>
+<text x="2894" y="2690.0" font-size="34" fill="#ffffff" class="bold">08  无政府状态</text>
+<path d="M 3290 2678.0 C 3335.0 2678.0, 3335.0 2339.0, 3380 2339.0" fill="none" stroke="#78518e" stroke-width="2" stroke-linecap="round"/>
+<rect x="3380" y="2238.0" width="1530" height="202" rx="14" fill="#f3eff5"/>
+<rect x="3380" y="2238.0" width="7" height="202" rx="2" fill="#78518e"/>
+<text x="3408" y="2285.0" font-size="32" fill="#78518e" class="bold">大改革触发</text>
+<text x="3411" y="2331.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="2331.0" font-size="30" fill="#203b48" class="light">连续两个普通回合大改革，或同一普通回合连续两次</text>
+<text x="3411" y="2386.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="2386.0" font-size="30" fill="#203b48" class="light">额外回合连续两次大改革也触发；小改革不计入</text>
+<path d="M 3290 2678.0 C 3335.0 2678.0, 3335.0 2565.0, 3380 2565.0" fill="none" stroke="#78518e" stroke-width="2" stroke-linecap="round"/>
+<rect x="3380" y="2464.0" width="1530" height="202" rx="14" fill="#f3eff5"/>
+<rect x="3380" y="2464.0" width="7" height="202" rx="2" fill="#78518e"/>
+<text x="3408" y="2511.0" font-size="32" fill="#78518e" class="bold">初始模板</text>
+<text x="3411" y="2557.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="2557.0" font-size="30" fill="#203b48" class="light">【暂定规则】金币、文明值新增产出降低90%；持续3回合</text>
+<text x="3411" y="2612.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="2612.0" font-size="30" fill="#203b48" class="light">已有库存不扣减；食物与劳动力不纳入直接减产</text>
+<path d="M 3290 2678.0 C 3335.0 2678.0, 3335.0 2791.0, 3380 2791.0" fill="none" stroke="#78518e" stroke-width="2" stroke-linecap="round"/>
+<rect x="3380" y="2690.0" width="1530" height="202" rx="14" fill="#f3eff5"/>
+<rect x="3380" y="2690.0" width="7" height="202" rx="2" fill="#78518e"/>
+<text x="3408" y="2737.0" font-size="32" fill="#78518e" class="bold">提示与延续</text>
+<text x="3411" y="2783.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="2783.0" font-size="30" fill="#203b48" class="light">触发前UI告知损失，由玩家确认是否继续</text>
+<text x="3411" y="2838.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="2838.0" font-size="30" fill="#203b48" class="light">进入额外回合后状态与减产效果继续生效</text>
+<path d="M 3290 2678.0 C 3335.0 2678.0, 3335.0 3017.0, 3380 3017.0" fill="none" stroke="#78518e" stroke-width="2" stroke-linecap="round"/>
+<rect x="3380" y="2916.0" width="1530" height="202" rx="14" fill="#f3eff5"/>
+<rect x="3380" y="2916.0" width="7" height="202" rx="2" fill="#78518e"/>
+<text x="3408" y="2963.0" font-size="32" fill="#78518e" class="bold">计算细则</text>
+<text x="3411" y="3009.0" font-size="26" fill="#946717" class="light">•</text>
+<text x="3442" y="3009.0" font-size="30" fill="#946717" class="light">【待落实】连续口径、跨流程计数、持续时间起算</text>
+<text x="3411" y="3064.0" font-size="26" fill="#946717" class="light">•</text>
+<text x="3442" y="3064.0" font-size="30" fill="#946717" class="light">【待落实】额外回合计时、小数及重复触发</text>
+<path d="M 2810 2202.0 C 2840.0 2202.0, 2840.0 3517.0, 2870 3517.0" fill="none" stroke="#876d39" stroke-width="3" stroke-linecap="round"/>
+<rect x="2870" y="3472.0" width="420" height="90" rx="18" fill="#876d39"/>
+<text x="2894" y="3529.0" font-size="34" fill="#ffffff" class="bold">09  后续设计</text>
+<path d="M 3290 3517.0 C 3335.0 3517.0, 3335.0 3291.0, 3380 3291.0" fill="none" stroke="#876d39" stroke-width="2" stroke-linecap="round"/>
+<rect x="3380" y="3190.0" width="1530" height="202" rx="14" fill="#f4f2ed"/>
+<rect x="3380" y="3190.0" width="7" height="202" rx="2" fill="#876d39"/>
+<text x="3408" y="3237.0" font-size="32" fill="#876d39" class="bold">建设与发展</text>
+<text x="3411" y="3283.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="3283.0" font-size="30" fill="#203b48" class="light">建造按卡面把牌加入卡组或额外卡组，可包含一次性牌</text>
+<text x="3411" y="3338.0" font-size="26" fill="#946717" class="light">•</text>
+<text x="3442" y="3338.0" font-size="30" fill="#946717" class="light">【待落实】建造细则、科技、政策、文明值与时代变化</text>
+<path d="M 3290 3517.0 C 3335.0 3517.0, 3335.0 3517.0, 3380 3517.0" fill="none" stroke="#876d39" stroke-width="2" stroke-linecap="round"/>
+<rect x="3380" y="3416.0" width="1530" height="202" rx="14" fill="#f4f2ed"/>
+<rect x="3380" y="3416.0" width="7" height="202" rx="2" fill="#876d39"/>
+<text x="3408" y="3463.0" font-size="32" fill="#876d39" class="bold">体验与整理</text>
+<text x="3411" y="3509.0" font-size="26" fill="#946717" class="light">•</text>
+<text x="3442" y="3509.0" font-size="30" fill="#946717" class="light">【待落实】大量人口损失后的低效拖延处理</text>
+<text x="3411" y="3564.0" font-size="26" fill="#946717" class="light">•</text>
+<text x="3442" y="3564.0" font-size="30" fill="#946717" class="light">【待落实】UI、操作节奏、时间术语与旧卡牌统一</text>
+<path d="M 3290 3517.0 C 3335.0 3517.0, 3335.0 3743.0, 3380 3743.0" fill="none" stroke="#876d39" stroke-width="2" stroke-linecap="round"/>
+<rect x="3380" y="3642.0" width="1530" height="202" rx="14" fill="#f4f2ed"/>
+<rect x="3380" y="3642.0" width="7" height="202" rx="2" fill="#876d39"/>
+<text x="3408" y="3689.0" font-size="32" fill="#876d39" class="bold">推进顺序</text>
+<text x="3411" y="3735.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="3735.0" font-size="30" fill="#203b48" class="light">T01 抽牌 → T02—T04 资源与改革 → T05—T08 危机与结算</text>
+<text x="3411" y="3790.0" font-size="26" fill="#203b48" class="light">•</text>
+<text x="3442" y="3790.0" font-size="30" fill="#203b48" class="light">T09—T12 状态与发展 → T13—T15 体验与文档</text>
+<path d="M 90 4114 H 4910" fill="none" stroke="#d2d8d7" stroke-width="2" stroke-linecap="round"/>
+<text x="90" y="4168" font-size="26" fill="#697b82" class="light">版本范围：当前确认框架；抽牌仅确定方向，结算与数值细则见【待落实】。</text>
+<text x="4200" y="4168" font-size="27" fill="#697b82" class="light">2026.09.10 / v0.2</text>
+</svg>

@@ -1,3 +1,6 @@
+import {type DeckRuntime} from '../rules/deckZones';
+import {initializeRegularGame,applyRegularCommand} from '../rules/regularGame';
+import {turnFoodDemand} from '../rules/turnRules';
 import {makeAction,buildBuilding,buildingCatalog,blueprintBuilding,removeOwnedCard,destroyBuilding} from '../rules/reform';
 import {purchaseResearchOffer,type ResearchOffer} from '../rules/researchShop';
 import cards from '../content/cards.json';
@@ -15,6 +18,7 @@ export interface TutorialBuilding { id:string; name:string; rarity:string; remai
 export interface FoodResource { id:string; kind:FoodKind; name:string; food:number; rarity?:string; consequence?:string; }
 export interface TutorialLogEntry { id:number; tone:'info'|'good'|'warning'; title:string; detail:string; }
 export interface BeginnerFoodState {
+  runtime?:DeckRuntime;
   researchOffers:ResearchOffer[]; surplusResearch:boolean;
   reformOpen:boolean; reformOffers:TutorialActionKind[]; reformSeed:number; nextCardId:number; permanentDeck:TutorialActionCard[]; availablePool:TutorialActionCard[]; excludedCycleCards:string[]; removedDrawnCards:number;
   scene:'tutorial'|'regular'; startingSetup?:RegularSetup;
@@ -27,7 +31,7 @@ export interface BeginnerFoodState {
 }
 export interface RegularSetup { buildings:string[]; deck:{cardId:string;count:number}[]; }
 export interface WebDemoConfig { scene:'tutorial'|'regular'; customSetup?:string|null; setups?:Record<string,RegularSetup>; }
-export const defaultRegularSetup:RegularSetup={buildings:['berry-bush','tribal-center'],deck:[{cardId:'search-food',count:1}]};
+export const defaultRegularSetup:RegularSetup={buildings:['berry-bush','tribal-center'],deck:[{cardId:'gather-berries',count:4},{cardId:'cultivate-grain',count:2},{cardId:'research',count:1},{cardId:'reform',count:1},{cardId:'trade',count:1},{cardId:'barter-goods',count:2},{cardId:'observe-nature',count:1}]};
 export function createWebDemo(config:WebDemoConfig):BeginnerFoodState {
   if(config.scene==='tutorial')return createBeginnerFoodDemo();
   if(config.scene!=='regular')throw new Error('Scene must be regular or tutorial');
@@ -49,17 +53,9 @@ export function createWebDemo(config:WebDemoConfig):BeginnerFoodState {
   for(const id of setup.buildings)if(buildingCatalog.some(building=>building.id===id))buildBuilding(state,id);
   state.log=[];state.nextLogId=1;
   triggerCenter(state,'organization-unlocked');
-  state.cycleDeck=regularDeck(state);state.hand=state.cycleDeck.slice(0,5);
-  addLog(state,'info','文明启程','生产设施已就绪。合理分配劳动力，发展科技并完成周期供养。');
+  initializeRegularGame(state);
+  addLog(state,'info','文明启程','每回合补充劳动力、抽牌并结算供养。建筑解锁科研商品，购买即入组。');
   return state;
-}
-function regularDeck(state:BeginnerFoodState):TutorialActionCard[]{
-  const deck=createCycleDeck(tribalCenter.organizationUnlockCycle,state.buildings).filter(card=>card.sourceBuildingId).map(card=>({...card,id:card.id.replace(/^c\d+-/,`c${state.cycle}-`)})).filter(card=>!state.excludedCycleCards.includes(card.id.replace(/^c\d+-/,'')));
-  deck.push(...state.permanentDeck.map(card=>({...card})));
-  // Reproducible shuffle for the demo; avoids tutorial's prescribed hand order.
-  let seed=state.cycle*104729+deck.length;
-  for(let i=deck.length-1;i>0;i--){seed=(Math.imul(seed,1664525)+1013904223)>>>0;const j=seed%(i+1);[deck[i],deck[j]]=[deck[j],deck[i]];}
-  return deck;
 }
 export type BeginnerFoodCommand = {type:'PLAY_TUTORIAL_CARD';cardId:string}|{type:'END_TUTORIAL_TURN'}|{type:'CONTINUE_TUTORIAL'}|{type:'RESET_TUTORIAL'}|{type:'CLOSE_RESEARCH'}|{type:'BUY_RESEARCH_OFFER';offerId:string}|{type:'BUY_TECHNOLOGY';technologyId:string}|{type:'CLOSE_REFORM'}|{type:'REFORM';mode:'discover'|'available'|'remove';cardId:string}|{type:'DESTROY_BUILDING';buildingId:string};
 export interface BeginnerFoodResult { state:BeginnerFoodState; error?:string; }
@@ -87,11 +83,12 @@ export function createBeginnerFoodDemo():BeginnerFoodState{
   addContentLog(state,scenario.cycles[0].log);return state;
 }
 export function totalFood(state:BeginnerFoodState):number{return state.foodResources.reduce((sum,item)=>sum+item.food,0);}
-export function totalFoodDemand(state:BeginnerFoodState):number{return Math.max(0,baseFoodDemand(state.population)+state.extraFoodDemand);}
+export function totalFoodDemand(state:BeginnerFoodState):number{return state.runtime?turnFoodDemand(state):Math.max(0,baseFoodDemand(state.population)+state.extraFoodDemand);}
 
 export function applyBeginnerFoodCommand(state:BeginnerFoodState,command:BeginnerFoodCommand):BeginnerFoodResult{
   if(command.type==='RESET_TUTORIAL')return {state:createWebDemo({scene:state.scene,...(state.startingSetup?{customSetup:'restart',setups:{restart:state.startingSetup}}:{})})};
   const next=clone(state);
+  if(next.runtime)return applyRegularCommand(state,next,command);
   if(command.type==='DESTROY_BUILDING'){
     if(next.phase!=='action'||next.researchOpen||next.reformOpen)return {state,error:'当前不能移除建筑。'};
     if(!next.buildings.some(building=>building.id===command.buildingId))return {state,error:'建筑不存在。'};
@@ -135,7 +132,7 @@ export function applyBeginnerFoodCommand(state:BeginnerFoodState,command:Beginne
     next.sickWorkers=next.sickWorkersNextCycle;next.sickWorkersNextCycle=0;
     next.removedDrawnCards=0;
     next.surplusResearch=false;
-    next.turnInCycle=1;next.hammers=Math.max(0,next.population-next.sickWorkers);next.cycleDeck=next.scene==='regular'?regularDeck(next):createCycleDeck(next.cycle,next.buildings).map(card=>card.sourceBuildingId?card:{...card,id:'tutorial-search'}).filter(card=>card.sourceBuildingId?!next.excludedCycleCards.includes(card.id.replace(/^c\d+-/,'')):next.permanentDeck.some(item=>item.id===card.id)).concat(next.permanentDeck.filter(card=>card.id!=='tutorial-search').map(card=>({...card})));next.hand=next.cycleDeck.slice(0,5);next.foodResources=[];next.extraFoodDemand=0;next.playedThisCycle=0;next.resultMessage=undefined;next.phase='action';
+    next.turnInCycle=1;next.hammers=Math.max(0,next.population-next.sickWorkers);next.cycleDeck=createCycleDeck(next.cycle,next.buildings).map(card=>card.sourceBuildingId?card:{...card,id:'tutorial-search'}).filter(card=>card.sourceBuildingId?!next.excludedCycleCards.includes(card.id.replace(/^c\d+-/,'')):next.permanentDeck.some(item=>item.id===card.id)).concat(next.permanentDeck.filter(card=>card.id!=='tutorial-search').map(card=>({...card})));next.hand=next.cycleDeck.slice(0,5);next.foodResources=[];next.extraFoodDemand=0;next.playedThisCycle=0;next.resultMessage=undefined;next.phase='action';
     if(next.scene==='tutorial')addContentLog(next,scenario.cycles[next.cycle-1].log);
     else addLog(next,'info',`生产周期 ${next.cycle}`,'新的周期行动牌已生成。');
     return {state:next};
@@ -190,4 +187,4 @@ function resolveCycle(next:BeginnerFoodState):BeginnerFoodResult{
   next.foodResources=[];next.phase='cycle-result';return {state:next};
 }
 function addLog(next:BeginnerFoodState,tone:TutorialLogEntry['tone'],title:string,detail:string):void{next.log.unshift({id:next.nextLogId++,tone,title,detail});}
-function clone(state:BeginnerFoodState):BeginnerFoodState{return {...state,researchOffers:state.researchOffers.map(offer=>({...offer})),permanentDeck:state.permanentDeck.map(card=>({...card})),availablePool:state.availablePool.map(card=>({...card})),reformOffers:[...state.reformOffers],excludedCycleCards:[...state.excludedCycleCards],researchedTechnologyIds:[...state.researchedTechnologyIds],buildings:state.buildings.map(building=>({...building})),cycleDeck:state.cycleDeck.map(card=>({...card})),hand:state.hand.map(card=>({...card})),foodResources:state.foodResources.map(item=>({...item})),log:state.log.map(entry=>({...entry}))};}
+function clone(state:BeginnerFoodState):BeginnerFoodState{return {...state,runtime:state.runtime?{...state.runtime,drawPile:state.runtime.drawPile.map(card=>({...card})),discardPile:state.runtime.discardPile.map(card=>({...card})),temporaryCardIds:[...state.runtime.temporaryCardIds]}:undefined,researchOffers:state.researchOffers.map(offer=>({...offer})),permanentDeck:state.permanentDeck.map(card=>({...card})),availablePool:state.availablePool.map(card=>({...card})),reformOffers:[...state.reformOffers],excludedCycleCards:[...state.excludedCycleCards],researchedTechnologyIds:[...state.researchedTechnologyIds],buildings:state.buildings.map(building=>({...building})),cycleDeck:state.cycleDeck.map(card=>({...card})),hand:state.hand.map(card=>({...card})),foodResources:state.foodResources.map(item=>({...item})),log:state.log.map(entry=>({...entry}))};}

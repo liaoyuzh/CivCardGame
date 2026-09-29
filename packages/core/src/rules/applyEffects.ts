@@ -1,8 +1,9 @@
+import {globalConfig} from './turnRules';
 import resources from '../content/resources.json';
 import events from '../content/events.json';
 import {baseFoodDemand} from './centerRates';
 import {openReform,buildFirePit,buildBuilding} from './reform';
-import {openResearchShop} from './researchShop';
+import {openResearchShop,openTradeShop} from './researchShop';
 import type { BeginnerFoodState, TutorialLogEntry } from '../tutorial/BeginnerFoodDemo';
 
 type Effect = { type:string; resourceId?:string; quantity?:number; amount?:number; pool?:string; buildingId?:string };
@@ -22,6 +23,8 @@ export function applyEvent(state:BeginnerFoodState,eventId:string):void{
 export function applyEffects(state:BeginnerFoodState,effects:readonly Effect[],resolveEvent?:(pool:string)=>string):void{
   for(const effect of effects){
     switch(effect.type){
+      case 'open-trade': if(state.runtime)openTradeShop(state);break;
+      case 'gain-gold': if(state.runtime)state.runtime.gold+=nonnegativeInteger(effect.amount);break;
       case 'build-building': if(!effect.buildingId)throw new Error('缺少建筑 id');buildBuilding(state,effect.buildingId);break;
       case 'surplus-research': state.surplusResearch=true;break;
       case 'population-hammers': state.hammers+=state.population;break;
@@ -29,7 +32,7 @@ export function applyEffects(state:BeginnerFoodState,effects:readonly Effect[],r
       case 'build-fire-pit': buildFirePit(state);break;
       case 'gain-research': state.researchPoints+=nonnegativeInteger(effect.amount);break;
       case 'gain-hammers': state.hammers+=nonnegativeInteger(effect.amount);break;
-      case 'reduce-food-demand': state.extraFoodDemand=Math.max(-baseFoodDemand(state.population),state.extraFoodDemand-nonnegativeInteger(effect.amount));break;
+      case 'reduce-food-demand': state.extraFoodDemand=Math.max(-(state.runtime?Math.ceil(state.population*globalConfig.FoodConsumptionPerPop):baseFoodDemand(state.population)),state.extraFoodDemand-nonnegativeInteger(effect.amount));break;
       case 'roast-food': if(state.foodResources[0])state.foodResources[0].food++;break;
       case 'open-research': openResearchShop(state);break;
       case 'gain-resource': {

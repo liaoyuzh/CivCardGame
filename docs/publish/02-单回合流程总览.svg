@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2240" height="1270" viewBox="0 0 2240 1270" role="img">
+<title>文明 Like 单回合流程总览</title>
+<style>text{font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif} .light{font-weight:400}.bold{font-weight:700}</style>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#69838b"/></marker></defs>
+<rect x="0" y="0" width="2240" height="1270" rx="0" fill="#f7f6f2"/>
+<rect x="0" y="0" width="2240" height="10" rx="0" fill="#193c49"/>
+<text x="80" y="82" font-size="25" fill="#557370" class="bold">文明 LIKE / GAMEPLAY FRAMEWORK</text>
+<text x="80" y="151" font-size="58" fill="#193c49" class="bold">一个回合，持续作出选择</text>
+<text x="80" y="198" font-size="27" fill="#64777e" class="light">已确认框架 · 阶段性成果 v0.2 · 2026.09.10</text>
+<rect x="80" y="250" width="380" height="204" rx="18" fill="#ffffff" stroke="#d9e0df" stroke-width="1.5"/>
+<text x="104" y="288" font-size="23" fill="#6a8d89" class="bold">01</text>
+<text x="104" y="336" font-size="36" fill="#193c49" class="bold">准备局势</text>
+<text x="104" y="384" font-size="23" fill="#536973" class="light">处理开始效果</text>
+<text x="104" y="424" font-size="23" fill="#536973" class="light">确定劳动力与当前需求</text>
+<path d="M 465 351 H 491" fill="none" stroke="#69838b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="500" y="250" width="380" height="204" rx="18" fill="#ffffff" stroke="#d9e0df" stroke-width="1.5"/>
+<text x="524" y="288" font-size="23" fill="#6a8d89" class="bold">02</text>
+<text x="524" y="336" font-size="36" fill="#193c49" class="bold">基础手牌</text>
+<text x="524" y="384" font-size="23" fill="#536973" class="light">先取得基础手牌</text>
+<text x="524" y="424" font-size="23" fill="#536973" class="light">行动中可有限主动过牌</text>
+<path d="M 885 351 H 911" fill="none" stroke="#69838b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="920" y="250" width="380" height="204" rx="18" fill="#ffffff" stroke="#d9e0df" stroke-width="1.5"/>
+<text x="944" y="288" font-size="23" fill="#6a8d89" class="bold">03</text>
+<text x="944" y="336" font-size="36" fill="#193c49" class="bold">执行行动</text>
+<text x="944" y="384" font-size="23" fill="#536973" class="light">检查条件、支付费用</text>
+<text x="944" y="424" font-size="23" fill="#536973" class="light">完整结算，直接收益即时到账</text>
+<path d="M 1305 351 H 1331" fill="none" stroke="#69838b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="1340" y="250" width="380" height="204" rx="18" fill="#ffffff" stroke="#d9e0df" stroke-width="1.5"/>
+<text x="1364" y="288" font-size="23" fill="#6a8d89" class="bold">04</text>
+<text x="1364" y="336" font-size="36" fill="#193c49" class="bold">反馈与调整</text>
+<text x="1364" y="384" font-size="23" fill="#536973" class="light">查看事件与危机进度</text>
+<text x="1364" y="424" font-size="23" fill="#536973" class="light">调整顺序或执行改革</text>
+<path d="M 1725 351 H 1751" fill="none" stroke="#69838b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="1760" y="250" width="380" height="204" rx="18" fill="#ffffff" stroke="#d9e0df" stroke-width="1.5"/>
+<text x="1784" y="288" font-size="23" fill="#6a8d89" class="bold">05</text>
+<text x="1784" y="336" font-size="36" fill="#193c49" class="bold">结束回合</text>
+<text x="1784" y="384" font-size="23" fill="#536973" class="light">玩家主动结束</text>
+<text x="1784" y="424" font-size="23" fill="#536973" class="light">处理供养与回合末效果</text>
+<path d="M 1510 454 V 496 Q 1510 516 1490 516 H 1130 Q 1110 516 1110 496 V 466" fill="none" stroke="#69838b" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arrow)"/>
+<text x="1180" y="560" font-size="26" fill="#526e78" class="light">继续行动</text>
+<text x="80" y="520" font-size="25" fill="#946717" class="light">【待落实】抽牌数量、费用、手牌处理及回收方式</text>
+<text x="1760" y="510" font-size="25" fill="#536973" class="light">未到期危机继续保留</text>
+<text x="1760" y="549" font-size="25" fill="#946717" class="light">【待落实】结束结算顺序</text>
+<path d="M 965 454 V 575 H 550 V 603" fill="none" stroke="#69838b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow)" stroke-dasharray="9 7"/>
+<path d="M 1300 454 V 575 H 1650 V 603" fill="none" stroke="#69838b" stroke-width="2" stroke-linecap="round" marker-end="url(#arrow)" stroke-dasharray="9 7"/>
+<rect x="80" y="620" width="1000" height="391" rx="20" fill="#f6ece8"/>
+<rect x="1140" y="620" width="1020" height="391" rx="20" fill="#e9f2ef"/>
+<text x="110" y="671" font-size="35" fill="#994e3d" class="bold">危机：独立计数与结算</text>
+<text x="110" y="726" font-size="26" fill="#3a5059" class="light">行动触发 / 进度变化 → 自身条件到期 → 奖惩结算</text>
+<text x="110" y="786" font-size="30" fill="#994e3d" class="bold">完成要求 ≠ 立即结算</text>
+<text x="110" y="840" font-size="27" fill="#3a5059" class="light">普通回合结束，不会提前结算未到期危机。</text>
+<text x="110" y="886" font-size="27" fill="#3a5059" class="light">奖励在危机实际结算时发放。</text>
+<text x="110" y="952" font-size="25" fill="#946717" class="light">【待落实】计数单位、推进节点、主动延缓与并行处理</text>
+<text x="1170" y="671" font-size="35" fill="#28766a" class="bold">大型危机：插入紧急回合</text>
+<text x="1170" y="726" font-size="26" fill="#3a5059" class="light">当前行动完整结算 → 临时应对 → 清理 → 返回原流程</text>
+<text x="1170" y="786" font-size="30" fill="#28766a" class="bold">独立临时资源 · 其他危机计数冻结</text>
+<text x="1170" y="840" font-size="27" fill="#3a5059" class="light">使用已有手牌与卡组；允许提前结束。</text>
+<text x="1170" y="886" font-size="27" fill="#3a5059" class="light">结束窗口不改变危机结算；无政府状态继续生效。</text>
+<text x="1170" y="952" font-size="25" fill="#946717" class="light">【待落实】临时能力、限制、结束与清理细则</text>
+<rect x="80" y="1050" width="2080" height="132" rx="18" fill="#eee8f3"/>
+<text x="110" y="1097" font-size="28" fill="#78518e" class="bold">改革的代价</text>
+<text x="110" y="1150" font-size="28" fill="#334954" class="light">大改革按规则触发无政府；金币与文明值新增产出 −90%，持续3回合。小改革以卡面亏模平衡。</text>
+<text x="80" y="1231" font-size="24" fill="#64777e" class="light">供养与危机允许失败并承担后果；人口全部损失即失败。</text>
+<text x="1690" y="1231" font-size="24" fill="#78518e" class="light">【暂定规则】无政府数值模板</text>
+</svg>

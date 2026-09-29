@@ -1,6 +1,6 @@
 {
   "scene": "regular",
-  "customSetup": "fire-pit-test",
+  "customSetup": null,
   "setups": {
     "research-start": {
       "buildings": [
@@ -9,8 +9,32 @@
       ],
       "deck": [
         {
-          "cardId": "search-food",
+          "cardId": "gather-berries",
+          "count": 4
+        },
+        {
+          "cardId": "cultivate-grain",
           "count": 2
+        },
+        {
+          "cardId": "research",
+          "count": 1
+        },
+        {
+          "cardId": "reform",
+          "count": 1
+        },
+        {
+          "cardId": "trade",
+          "count": 1
+        },
+        {
+          "cardId": "barter-goods",
+          "count": 2
+        },
+        {
+          "cardId": "observe-nature",
+          "count": 1
         }
       ]
     },
@@ -33,7 +57,31 @@
       ],
       "deck": [
         {
-          "cardId": "search-food",
+          "cardId": "gather-berries",
+          "count": 4
+        },
+        {
+          "cardId": "cultivate-grain",
+          "count": 2
+        },
+        {
+          "cardId": "research",
+          "count": 1
+        },
+        {
+          "cardId": "reform",
+          "count": 1
+        },
+        {
+          "cardId": "trade",
+          "count": 1
+        },
+        {
+          "cardId": "barter-goods",
+          "count": 2
+        },
+        {
+          "cardId": "observe-nature",
           "count": 1
         }
       ]
